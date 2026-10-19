@@ -44,6 +44,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-deep: var(--deep);
+  --color-whatsapp: var(--whatsapp);
   --color-deep-foreground: var(--deep-foreground);
   --font-display: "Rubik", sans-serif;
   --font-sans: "Work Sans", sans-serif;
@@ -82,6 +83,7 @@
   --accent: oklch(0.78 0.12 65);
   --accent-foreground: oklch(0.25 0.04 60);
   --deep: oklch(0.28 0.05 195);
+  --whatsapp: oklch(0.72 0.17 150);
   --deep-foreground: oklch(0.95 0.02 85);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);

@@ -1,19 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
 import hero from "@/assets/hero.jpg";
+import vitamins from "@/assets/promo-vitamins.jpg";
+import formula from "@/assets/promo-formula.jpg";
 import { productsQuery, settingsQuery, useCart } from "@/lib/store";
-import { Benzene, Flask, Formula, MoleculeNet, SectionDivider } from "@/components/ChemArt";
+import { Benzene } from "@/components/ChemArt";
 import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    q: typeof s.q === "string" ? s.q : undefined,
+    cat: typeof s.cat === "string" ? s.cat : undefined,
+  }),
   head: () => ({
     meta: [
-      { title: "Phycadelics Verdant — Licensed Care, Delivered" },
-      { name: "description", content: "Licensed community pharmacy: prescriptions, vitamins, skincare and expert advice with fast home delivery." },
-      { property: "og:title", content: "Phycadelics Verdant — Licensed Care, Delivered" },
-      { property: "og:description", content: "Prescriptions, wellness and expert pharmacist advice, delivered to your door." },
+      { title: "Phycadelics Verdant — Pharmacy & Laboratory Online Shop" },
+      { name: "description", content: "Licensed pharmacy and laboratory: medicines, vitamins, skincare and expert pharmacist advice with home delivery." },
+      { property: "og:title", content: "Phycadelics Verdant — Pharmacy & Laboratory" },
+      { property: "og:description", content: "Quality-tested medicines and wellness products, delivered to your door." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -21,136 +28,146 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const slides = [
+  { img: hero, kicker: "From our laboratory", title: "Quality-Tested Medicines You Can Trust", cta: "#shop" },
+  { img: vitamins, kicker: "Daily wellness", title: "Vitamins & Supplements For The Whole Family", cta: "#shop" },
+];
+
 function Index() {
+  const search = Route.useSearch();
   const { data: products = [], isLoading } = useQuery(productsQuery);
   const { data: s } = useQuery(settingsQuery);
   const cart = useCart();
-  const [cat, setCat] = useState("All");
-  const [q, setQ] = useState("");
+  const [cat, setCat] = useState(search.cat ?? "All");
+  const [slide, setSlide] = useState(0);
+  const q = search.q ?? "";
   const cur = s?.currency ?? "$";
+  const name = s?.pharmacy_name ?? "Phycadelics Verdant";
+
+  useEffect(() => { if (search.cat) setCat(search.cat); }, [search.cat]);
+  useEffect(() => {
+    const t = setInterval(() => setSlide((x) => (x + 1) % slides.length), 6000);
+    return () => clearInterval(t);
+  }, []);
+
   const categories = useMemo(() => ["All", ...Array.from(new Set(products.map((p) => p.category)))], [products]);
-  const list = products.filter(
-    (p) => (cat === "All" || p.category === cat) && p.name.toLowerCase().includes(q.toLowerCase()),
-  );
+  const list = products.filter((p) => (cat === "All" || p.category === cat) && p.name.toLowerCase().includes(q.toLowerCase()));
+  const sl = slides[slide]!;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <SiteHeader />
 
-      <div className="relative overflow-hidden bg-hex">
-      <Benzene className="pointer-events-none absolute -left-10 top-10 hidden w-48 text-primary/20 animate-drift md:block" />
-      <MoleculeNet className="pointer-events-none absolute right-4 top-4 w-40 text-accent/50 animate-drift md:w-56" />
-      <Flask className="pointer-events-none absolute bottom-6 left-1/2 hidden w-16 text-primary/25 md:block" />
-      <section className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
-        <div>
-          <span className="inline-block rounded-full bg-accent/30 px-3 py-1 text-xs font-semibold text-accent-foreground">
-            Pharmaceutical science · Licensed & regulated
-          </span>
-          <h1 className="mt-5 font-display text-4xl font-bold leading-tight md:text-6xl">
-            Science-backed care, <span className="text-primary">formulated</span> with precision.
-          </h1>
-          <p className="mt-5 max-w-md text-muted-foreground">
-            Every product we stock is quality-tested and dispensed by licensed pharmacists — from the lab to your door.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#shop" className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg transition hover:opacity-90">
-              Shop now
-            </a>
-            <a href={`tel:${s?.phone ?? ""}`} className="rounded-full border-2 border-primary px-6 py-3 font-semibold text-primary transition hover:bg-secondary">
-              Call a pharmacist
-            </a>
-          </div>
-        </div>
-        <div className="relative">
-          <div className="absolute -inset-3 rotate-2 rounded-[2rem] bg-accent/40" />
-          <img src={hero} alt="Scientist mixing formulations in the laboratory" width={1280} height={960} className="relative rounded-[2rem] object-cover shadow-2xl" />
-          <div className="absolute -bottom-6 -left-4 rounded-2xl border bg-card/95 px-4 py-3 shadow-xl backdrop-blur">
-            <Formula className="h-6 w-56 text-primary" />
-            <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Quality-controlled formulation</p>
-          </div>
-        </div>
-      </section>
-      </div>
-      <SectionDivider className="mx-auto my-2 h-8 w-full max-w-xl text-primary/40" />
-
-      <section id="services" className="relative overflow-hidden bg-deep bg-hex-light py-16 text-deep-foreground">
-        <MoleculeNet className="pointer-events-none absolute -right-10 -top-10 w-72 text-deep-foreground/10" />
-        <div className="relative mx-auto mb-10 max-w-6xl px-4">
-          <p className="text-xs uppercase tracking-[0.3em] opacity-70">Our laboratory standards</p>
-          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Precision in every dose</h2>
-        </div>
-        <div className="relative mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-4">
-          {[
-            ["Prescription service", "Bring or send your prescription and we prepare it the same day."],
-            ["Free consultations", "Private advice from licensed pharmacists."],
-            ["Home delivery", "Discreet packaging, delivered to your door."],
-            ["Health checks", "Blood pressure, glucose and vaccinations in store."],
-          ].map(([t, d]) => (
-            <div key={t} className="rounded-2xl border border-deep-foreground/15 p-6">
-              <h3 className="font-display text-lg font-bold">{t}</h3>
-              <p className="mt-2 text-sm opacity-80">{d}</p>
+      {/* Hero: slider + side banners */}
+      <div className="relative">
+        <div className="absolute inset-x-0 top-0 h-[78%] bg-primary" />
+        <div className="relative mx-auto grid max-w-7xl gap-5 px-4 pb-6 lg:grid-cols-[1fr_380px]">
+          <div className="relative grid min-h-[420px] overflow-hidden bg-muted md:grid-cols-2">
+            <div className="z-10 flex flex-col justify-center p-8 md:p-12">
+              <p className="text-sm text-muted-foreground">{sl.kicker}</p>
+              <h1 className="mt-4 font-display text-3xl font-semibold leading-tight md:text-5xl">{sl.title}</h1>
+              <a href={sl.cta} className="mt-8 w-fit bg-primary px-7 py-3 font-display text-sm font-semibold uppercase tracking-wide text-primary-foreground hover:opacity-90">
+                Shop now
+              </a>
             </div>
-          ))}
+            <img src={sl.img} alt="" className="h-64 w-full object-cover md:h-full" width={1280} height={960} />
+            <button onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous" className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-foreground/60 hover:text-foreground"><ChevronLeft /></button>
+            <button onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-primary-foreground/80 hover:text-primary-foreground"><ChevronRight /></button>
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+              {slides.map((_, i) => <span key={i} className={`h-2 w-2 rounded-full ${i === slide ? "bg-primary" : "bg-foreground/25"}`} />)}
+            </div>
+          </div>
+          <div className="grid gap-5">
+            <div className="relative overflow-hidden bg-card p-7 shadow-sm">
+              <h2 className="relative z-10 font-display text-2xl font-semibold text-primary">{name} Online Shop</h2>
+              <p className="relative z-10 mt-1 text-sm text-muted-foreground">Pharmacy · Laboratory · Wellness</p>
+              <Benzene className="absolute -bottom-6 right-0 w-44 text-foreground/80" />
+            </div>
+            <div className="relative min-h-[200px] overflow-hidden">
+              <img src={formula} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="relative p-7 text-primary-foreground">
+                <p className="font-display text-lg font-semibold">Ask our pharmacists</p>
+                <p className="text-sm opacity-90">Free advice on every order</p>
+                <a href={`tel:${s?.phone ?? ""}`} className="mt-4 inline-block bg-background px-5 py-2 font-display text-xs font-semibold uppercase text-foreground">Call now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Welcome text */}
+      <section className="mx-auto max-w-5xl px-4 py-14 text-center">
+        <h2 className="font-display text-2xl font-semibold md:text-3xl">Welcome to {name} – Your Trusted Pharmacy Online Shop</h2>
+        <p className="mt-5 leading-relaxed text-muted-foreground">
+          Looking to <strong className="text-foreground">buy medicines online</strong>? At {name}, we offer a carefully selected range of{" "}
+          <strong className="text-foreground">pharmacy products</strong> delivered discreetly and safely. Whether you need{" "}
+          <strong className="text-foreground">pain relief</strong>, <strong className="text-foreground">vitamins and supplements</strong>,{" "}
+          <strong className="text-foreground">cold & flu remedies</strong> or <strong className="text-foreground">skincare</strong>, every item is
+          checked by our licensed pharmacists before it leaves our shelves.
+        </p>
+      </section>
+
+      {/* Trust bar */}
+      <section id="services" className="border-y bg-muted">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 md:grid-cols-4">
+          {[
+            [ShieldCheck, "Licensed pharmacy", "Registered & regulated"],
+            [FlaskConical, "Lab tested", "Quality-controlled stock"],
+            [Truck, "Fast delivery", "Discreet packaging"],
+            [Stethoscope, "Free advice", "Talk to a pharmacist"],
+          ].map(([Icon, t, d]) => {
+            const I = Icon as typeof ShieldCheck;
+            return (
+              <div key={t as string} className="flex items-center gap-3">
+                <I className="h-9 w-9 shrink-0 text-primary" strokeWidth={1.5} />
+                <div>
+                  <p className="font-display text-sm font-semibold">{t as string}</p>
+                  <p className="text-xs text-muted-foreground">{d as string}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      <section id="shop" className="mx-auto max-w-6xl px-4 py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-primary">Catalogue</p>
-            <h2 className="font-display text-3xl font-bold md:text-4xl">Shop essentials</h2>
+      {/* Shop */}
+      <section id="shop" className="mx-auto max-w-7xl px-4 py-14">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b pb-3">
+          <h2 className="font-display text-2xl font-semibold">{q ? `Results for “${q}”` : "Our Products"}</h2>
+          <div className="flex flex-wrap gap-4 text-sm">
+            {categories.map((c) => (
+              <button key={c} onClick={() => setCat(c)} className={`pb-1 font-display ${cat === c ? "border-b-2 border-primary font-semibold text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+                {c}
+              </button>
+            ))}
           </div>
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search products…"
-            className="w-full rounded-full border bg-card px-4 py-2 text-sm md:w-64"
-          />
-        </div>
-        <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCat(c)}
-              className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition ${cat === c ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-secondary"}`}
-            >
-              {c}
-            </button>
-          ))}
         </div>
         {isLoading && <p className="mt-8 text-muted-foreground">Loading products…</p>}
-        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
           {list.map((p) => {
             const out = p.stock <= 0;
             return (
-              <div key={p.id} className="flex flex-col rounded-2xl border bg-card p-4 transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="relative grid aspect-square place-items-center overflow-hidden rounded-xl bg-secondary">
+              <div key={p.id} className="group flex flex-col text-center">
+                <div className="relative grid aspect-square place-items-center overflow-hidden border bg-card">
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} loading="lazy" className="h-full w-full object-cover" />
+                    <img src={p.image_url} alt={p.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
                   ) : (
-                    <span className="font-display text-4xl text-primary">{p.name[0]}</span>
+                    <span className="font-display text-5xl font-semibold text-primary/30">{p.name[0]}</span>
                   )}
-                  {p.tag && (
-                    <span className="absolute left-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-accent-foreground">{p.tag}</span>
-                  )}
+                  {p.tag && <span className="absolute left-2 top-2 bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-foreground">{p.tag}</span>}
+                  {out && <span className="absolute right-2 top-2 bg-foreground px-2 py-0.5 text-[11px] font-semibold text-background">Sold out</span>}
                 </div>
                 <p className="mt-3 text-xs text-muted-foreground">{p.category}</p>
-                <h3 className="font-semibold">{p.name}</h3>
-                {p.description && <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{p.description}</p>}
-                {p.requires_prescription && <p className="mt-1 text-[11px] font-semibold text-primary">Prescription required</p>}
-                <div className="mt-auto flex items-center justify-between pt-3">
-                  <span className="font-display text-lg font-bold">{cur}{Number(p.price).toFixed(2)}</span>
-                  <button
-                    disabled={out}
-                    onClick={() => {
-                      cart.add(p);
-                      toast.success(`${p.name} added to cart`);
-                    }}
-                    className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-40"
-                  >
-                    {out ? "Sold out" : "Add"}
-                  </button>
-                </div>
+                <h3 className="font-display text-sm font-semibold">{p.name}</h3>
+                {p.requires_prescription && <p className="text-[11px] text-primary">Prescription required</p>}
+                <p className="mt-1 font-semibold text-primary">{cur}{Number(p.price).toFixed(2)}</p>
+                <button
+                  disabled={out}
+                  onClick={() => { cart.add(p); toast.success(`${p.name} added to cart`); }}
+                  className="mx-auto mt-3 bg-primary px-5 py-2 font-display text-xs font-semibold uppercase text-primary-foreground hover:opacity-90 disabled:opacity-40"
+                >
+                  Add to cart
+                </button>
               </div>
             );
           })}
