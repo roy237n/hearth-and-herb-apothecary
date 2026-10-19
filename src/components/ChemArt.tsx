@@ -14,12 +14,12 @@ export function Benzene({ className }: P) {
 }
 
 export function MoleculeNet({ className }: P) {
-  const nodes = [[30, 40], [90, 20], [150, 55], [120, 120], [55, 110], [190, 130], [80, 175], [170, 190]];
-  const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0], [3, 5], [4, 6], [6, 7], [5, 7], [1, 4]];
+  const nodes: [number, number][] = [[30, 40], [90, 20], [150, 55], [120, 120], [55, 110], [190, 130], [80, 175], [170, 190]];
+  const edges: [number, number][] = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0], [3, 5], [4, 6], [6, 7], [5, 7], [1, 4]];
   return (
     <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden>
       {edges.map(([a, b], i) => (
-        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} />
+        <line key={i} x1={nodes[a]![0]} y1={nodes[a]![1]} x2={nodes[b]![0]} y2={nodes[b]![1]} />
       ))}
       {nodes.map(([x, y], i) => (
         <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 7 : 4.5} fill="currentColor" fillOpacity={i % 3 === 0 ? 0.25 : 0.6} />
