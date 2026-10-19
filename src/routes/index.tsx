@@ -74,12 +74,12 @@ function Index() {
             <button onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous" className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-foreground/60 hover:text-foreground"><ChevronLeft /></button>
             <button onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-primary-foreground/80 hover:text-primary-foreground"><ChevronRight /></button>
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
-              {slides.map((_, i) => <span key={i} className={`h-2 w-2 rounded-full ${i === slide ? "bg-primary" : "bg-foreground/25"}`} />)}
+              {slides.map((_, i) => <span key={i} className={`h-2 w-2 rounded-full ${i === slide ? "bg-accent" : "bg-foreground/25"}`} />)}
             </div>
           </div>
           <div className="grid gap-5">
             <div className="relative min-h-[200px] overflow-hidden bg-card p-7 pr-28 shadow-sm">
-              <h2 className="relative z-10 font-display text-2xl font-semibold text-primary">{name} Online Shop</h2>
+              <h2 className="relative z-10 font-display text-2xl font-semibold text-foreground">{name} Online Shop</h2>
               <p className="relative z-10 mt-1 text-sm text-muted-foreground">Pharmacy · Laboratory · Wellness</p>
               <Benzene className="absolute -bottom-10 -right-4 w-36 text-foreground/70" />
             </div>
@@ -120,7 +120,7 @@ function Index() {
             const I = Icon as typeof ShieldCheck;
             return (
               <div key={t as string} className="flex items-center gap-3">
-                <I className="h-9 w-9 shrink-0 text-primary" strokeWidth={1.5} />
+                <I className="h-9 w-9 shrink-0 text-accent" strokeWidth={1.5} />
                 <div>
                   <p className="font-display text-sm font-semibold">{t as string}</p>
                   <p className="text-xs text-muted-foreground">{d as string}</p>
@@ -137,7 +137,7 @@ function Index() {
           <h2 className="font-display text-2xl font-semibold">{q ? `Results for “${q}”` : "Our Products"}</h2>
           <div className="flex flex-wrap gap-4 text-sm">
             {categories.map((c) => (
-              <button key={c} onClick={() => setCat(c)} className={`pb-1 font-display ${cat === c ? "border-b-2 border-primary font-semibold text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+              <button key={c} onClick={() => setCat(c)} className={`pb-1 font-display ${cat === c ? "border-b-2 border-accent font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {c}
               </button>
             ))}
@@ -161,7 +161,7 @@ function Index() {
                 <p className="mt-3 text-xs text-muted-foreground">{p.category}</p>
                 <h3 className="font-display text-sm font-semibold">{p.name}</h3>
                 {p.requires_prescription && <p className="text-[11px] text-primary">Prescription required</p>}
-                <p className="mt-1 font-semibold text-primary">{cur}{Number(p.price).toFixed(2)}</p>
+                <p className="mt-1 font-semibold text-accent">{cur}{Number(p.price).toFixed(2)}</p>
                 <button
                   disabled={out}
                   onClick={() => { cart.add(p); toast.success(`${p.name} added to cart`); }}

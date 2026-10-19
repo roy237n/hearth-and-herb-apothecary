@@ -23,7 +23,7 @@ export function SiteHeader() {
             <span className="flex items-center gap-1"><Clock className="h-4 w-4" />{s?.hours}</span>
           </div>
           <Link to="/" className="flex flex-col items-center leading-none">
-            <span className="font-display text-2xl font-bold tracking-tight text-primary">{name}</span>
+            <span className="font-display text-2xl font-bold tracking-tight text-foreground">{name}</span>
             <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">Pharmacy & Laboratory</span>
           </Link>
           <div className="hidden items-center justify-end gap-4 text-sm md:flex">
