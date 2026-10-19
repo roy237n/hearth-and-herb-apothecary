@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import hero from "@/assets/hero.jpg";
 import { productsQuery, settingsQuery, useCart } from "@/lib/store";
+import { Benzene, Flask, Formula, MoleculeNet, SectionDivider } from "@/components/ChemArt";
 import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
@@ -36,16 +37,20 @@ function Index() {
     <div className="min-h-screen bg-background font-sans text-foreground">
       <SiteHeader />
 
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
+      <div className="relative overflow-hidden bg-hex">
+      <Benzene className="pointer-events-none absolute -left-10 top-10 hidden w-48 text-primary/20 animate-drift md:block" />
+      <MoleculeNet className="pointer-events-none absolute right-4 top-4 w-40 text-accent/50 animate-drift md:w-56" />
+      <Flask className="pointer-events-none absolute bottom-6 left-1/2 hidden w-16 text-primary/25 md:block" />
+      <section className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
         <div>
           <span className="inline-block rounded-full bg-accent/30 px-3 py-1 text-xs font-semibold text-accent-foreground">
-            Licensed & regulated pharmacy
+            Pharmaceutical science · Licensed & regulated
           </span>
           <h1 className="mt-5 font-display text-4xl font-bold leading-tight md:text-6xl">
-            Care you can trust, <span className="text-primary">delivered</span> to your door.
+            Science-backed care, <span className="text-primary">formulated</span> with precision.
           </h1>
           <p className="mt-5 max-w-md text-muted-foreground">
-            Order everyday health essentials online and talk to a real pharmacist — all in one place.
+            Every product we stock is quality-tested and dispensed by licensed pharmacists — from the lab to your door.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#shop" className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg transition hover:opacity-90">
@@ -58,12 +63,23 @@ function Index() {
         </div>
         <div className="relative">
           <div className="absolute -inset-3 rotate-2 rounded-[2rem] bg-accent/40" />
-          <img src={hero} alt="Pharmacist at the counter" width={1280} height={960} className="relative rounded-[2rem] object-cover shadow-2xl" />
+          <img src={hero} alt="Scientist mixing formulations in the laboratory" width={1280} height={960} className="relative rounded-[2rem] object-cover shadow-2xl" />
+          <div className="absolute -bottom-6 -left-4 rounded-2xl border bg-card/95 px-4 py-3 shadow-xl backdrop-blur">
+            <Formula className="h-6 w-56 text-primary" />
+            <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Quality-controlled formulation</p>
+          </div>
         </div>
       </section>
+      </div>
+      <SectionDivider className="mx-auto my-2 h-8 w-full max-w-xl text-primary/40" />
 
-      <section id="services" className="bg-deep py-16 text-deep-foreground">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-4">
+      <section id="services" className="relative overflow-hidden bg-deep bg-hex-light py-16 text-deep-foreground">
+        <MoleculeNet className="pointer-events-none absolute -right-10 -top-10 w-72 text-deep-foreground/10" />
+        <div className="relative mx-auto mb-10 max-w-6xl px-4">
+          <p className="text-xs uppercase tracking-[0.3em] opacity-70">Our laboratory standards</p>
+          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Precision in every dose</h2>
+        </div>
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-4">
           {[
             ["Prescription service", "Bring or send your prescription and we prepare it the same day."],
             ["Free consultations", "Private advice from licensed pharmacists."],
@@ -80,7 +96,10 @@ function Index() {
 
       <section id="shop" className="mx-auto max-w-6xl px-4 py-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-3xl font-bold md:text-4xl">Shop essentials</h2>
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-primary">Catalogue</p>
+            <h2 className="font-display text-3xl font-bold md:text-4xl">Shop essentials</h2>
+          </div>
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}

@@ -148,3 +148,13 @@
     color: var(--color-foreground);
   }
 }
+
+/* Faint hexagonal molecule grid for scientific sections */
+@utility bg-hex {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 0 56 16v32L28 64 0 48V16zM28 64v34' fill='none' stroke='%23277a78' stroke-opacity='.09' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+@utility bg-hex-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 0 56 16v32L28 64 0 48V16zM28 64v34' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+@keyframes drift { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(6deg); } }
+@utility animate-drift { animation: drift 9s ease-in-out infinite; }
