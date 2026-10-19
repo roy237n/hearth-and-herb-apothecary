@@ -11,9 +11,9 @@ import { Benzene } from "@/components/ChemArt";
 import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    q: typeof s.q === "string" ? s.q : undefined,
-    cat: typeof s.cat === "string" ? s.cat : undefined,
+  validateSearch: (s: Record<string, unknown>): { q?: string; cat?: string } => ({
+    q: typeof s["q"] === "string" ? (s["q"] as string) : undefined,
+    cat: typeof s["cat"] === "string" ? (s["cat"] as string) : undefined,
   }),
   head: () => ({
     meta: [
