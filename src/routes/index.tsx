@@ -9,9 +9,9 @@ import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Verdant Pharmacy — Licensed Care, Delivered" },
+      { title: "Phycadelics Verdant — Licensed Care, Delivered" },
       { name: "description", content: "Licensed community pharmacy: prescriptions, vitamins, skincare and expert advice with fast home delivery." },
-      { property: "og:title", content: "Verdant Pharmacy — Licensed Care, Delivered" },
+      { property: "og:title", content: "Phycadelics Verdant — Licensed Care, Delivered" },
       { property: "og:description", content: "Prescriptions, wellness and expert pharmacist advice, delivered to your door." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

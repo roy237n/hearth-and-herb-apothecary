@@ -9,9 +9,9 @@ import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/checkout")({
   head: () => ({
     meta: [
-      { title: "Your Cart & Checkout — Verdant Pharmacy" },
+      { title: "Your Cart & Checkout — Phycadelics Verdant" },
       { name: "description", content: "Review your cart and place your pharmacy order for delivery." },
-      { property: "og:title", content: "Checkout — Verdant Pharmacy" },
+      { property: "og:title", content: "Checkout — Phycadelics Verdant" },
       { property: "og:description", content: "Place your pharmacy order for home delivery." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

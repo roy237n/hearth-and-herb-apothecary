@@ -10,9 +10,9 @@ import { enhanceProductImage } from "@/lib/images.functions";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard — Verdant Pharmacy" },
+      { title: "Admin Dashboard — Phycadelics Verdant" },
       { name: "description", content: "Manage products, prices, orders and pharmacy details." },
-      { property: "og:title", content: "Admin Dashboard — Verdant Pharmacy" },
+      { property: "og:title", content: "Admin Dashboard — Phycadelics Verdant" },
       { property: "og:description", content: "Manage products, prices, orders and pharmacy details." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -80,7 +80,7 @@ function Admin() {
   );
 }
 
-const empty = { name: "", category: "General", description: "", price: "0", stock: "0", tag: "", requires_prescription: false, active: true, image_url: null as string | null };
+const empty = { name: "", category: "", description: "", price: "0", stock: "0", tag: "", requires_prescription: false, active: true, image_url: null as string | null };
 
 function ProductsTab() {
   const qc = useQueryClient();
@@ -123,6 +123,8 @@ function ProductsTab() {
 function ProductForm({ product, onClose }: { product: Product | null; onClose: () => void }) {
   const qc = useQueryClient();
   const enhance = useServerFn(enhanceProductImage);
+  const { data: all = [] } = useQuery(productsQuery);
+  const categories = Array.from(new Set(all.map((p) => p.category)));
   const [f, setF] = useState(() =>
     product
       ? { ...product, price: String(product.price), stock: String(product.stock), tag: product.tag ?? "" }
@@ -177,7 +179,8 @@ function ProductForm({ product, onClose }: { product: Product | null; onClose: (
     <form onSubmit={save} className="mt-6 grid gap-3 rounded-2xl border bg-muted p-5 md:grid-cols-2">
       <h3 className="font-display text-lg font-bold md:col-span-2">{product ? "Edit product" : "New product"}</h3>
       <label className="text-sm">Name<input required className={field} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></label>
-      <label className="text-sm">Category<input required className={field} value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })} /></label>
+      <label className="text-sm">Category (pick one or type a new one)<input required list="cat-list" className={field} value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })} />
+        <datalist id="cat-list">{categories.map((c) => <option key={c} value={c} />)}</datalist></label>
       <label className="text-sm">Price<input type="number" step="0.01" min="0" required className={field} value={f.price} onChange={(e) => setF({ ...f, price: e.target.value })} /></label>
       <label className="text-sm">Stock<input type="number" min="0" required className={field} value={f.stock} onChange={(e) => setF({ ...f, stock: e.target.value })} /></label>
       <label className="text-sm">Badge (optional)<input className={field} placeholder="e.g. New, Best seller" value={f.tag} onChange={(e) => setF({ ...f, tag: e.target.value })} /></label>
