@@ -43,7 +43,7 @@ function Checkout() {
       total,
     });
     setBusy(false);
-    if (error) return toast.error("Could not place order. Please try again.");
+    if (error) { toast.error("Could not place order. Please try again."); return; }
     cart.clear();
     setDone(true);
   }

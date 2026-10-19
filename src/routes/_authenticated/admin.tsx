@@ -90,7 +90,7 @@ function ProductsTab() {
   async function remove(p: Product) {
     if (!confirm(`Delete ${p.name}?`)) return;
     const { error } = await supabase.from("products").delete().eq("id", p.id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["products"] });
   }
 
@@ -209,7 +209,7 @@ function OrdersTab() {
   });
   async function setStatus(id: string, status: string) {
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["orders"] });
   }
   return (
@@ -254,7 +254,7 @@ function SettingsTab() {
     if (!s) return;
     const { id: _id, ...rest } = s;
     const { error } = await supabase.from("site_settings").update({ ...rest, delivery_fee: Number(rest.delivery_fee), free_delivery_over: Number(rest.free_delivery_over) }).eq("id", 1);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Settings saved");
     qc.invalidateQueries({ queryKey: ["settings"] });
   }

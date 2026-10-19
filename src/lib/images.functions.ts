@@ -31,7 +31,7 @@ export const enhanceProductImage = createServerFn({ method: "POST" })
       form.append("image", new File([file], "product.png", { type: file.type || "image/png" }));
       const res = await fetch("https://ai.gateway.lovable.dev/v1/images/edits", {
         method: "POST",
-        headers: { Authorization: `Bearer ${process.env.LOVABLE_API_KEY}`, "X-Lovable-AIG-SDK": "fetch" },
+        headers: { Authorization: `Bearer ${process.env['LOVABLE_API_KEY']}`, "X-Lovable-AIG-SDK": "fetch" },
         body: form,
       });
       if (res.ok) {
