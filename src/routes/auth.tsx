@@ -52,10 +52,7 @@ function AuthPage() {
         <button disabled={busy} className="w-full rounded-full bg-primary py-3 font-semibold text-primary-foreground disabled:opacity-50">
           {busy ? "Please wait…" : mode === "in" ? "Sign in" : "Create account"}
         </button>
-        <button type="button" onClick={() => setMode(mode === "in" ? "up" : "in")} className="w-full text-sm text-muted-foreground underline">
-          {mode === "in" ? "No account yet? Create one" : "Already have an account? Sign in"}
-        </button>
-        <p className="text-xs text-muted-foreground">The first account created becomes the pharmacy admin.</p>
+        <p className="text-xs text-muted-foreground">Staff access only. New sign-ups are disabled.</p>
       </form>
     </div>
   );
