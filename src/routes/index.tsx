@@ -11,7 +11,7 @@ import { Benzene } from "@/components/ChemArt";
 import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>): { q?: string; cat?: string } => ({
+  validateSearch: (s: Record<string, unknown>): { q?: string | undefined; cat?: string | undefined } => ({
     q: typeof s["q"] === "string" ? (s["q"] as string) : undefined,
     cat: typeof s["cat"] === "string" ? (s["cat"] as string) : undefined,
   }),
@@ -78,13 +78,14 @@ function Index() {
             </div>
           </div>
           <div className="grid gap-5">
-            <div className="relative overflow-hidden bg-card p-7 shadow-sm">
+            <div className="relative min-h-[200px] overflow-hidden bg-card p-7 pr-28 shadow-sm">
               <h2 className="relative z-10 font-display text-2xl font-semibold text-primary">{name} Online Shop</h2>
               <p className="relative z-10 mt-1 text-sm text-muted-foreground">Pharmacy · Laboratory · Wellness</p>
-              <Benzene className="absolute -bottom-6 right-0 w-44 text-foreground/80" />
+              <Benzene className="absolute -bottom-10 -right-4 w-36 text-foreground/70" />
             </div>
             <div className="relative min-h-[200px] overflow-hidden">
               <img src={formula} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/60 to-transparent" />
               <div className="relative p-7 text-primary-foreground">
                 <p className="font-display text-lg font-semibold">Ask our pharmacists</p>
                 <p className="text-sm opacity-90">Free advice on every order</p>
