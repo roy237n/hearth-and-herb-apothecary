@@ -45,8 +45,8 @@
   --color-border: var(--border);
   --color-deep: var(--deep);
   --color-deep-foreground: var(--deep-foreground);
-  --font-display: "Fraunces", serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Rubik", sans-serif;
+  --font-sans: "Work Sans", sans-serif;
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
@@ -66,8 +66,8 @@
 }
 
 :root {
-  --radius: 1rem;
-  --background: oklch(0.975 0.012 85);
+  --radius: 0.375rem;
+  --background: oklch(1 0 0);
   --foreground: oklch(0.25 0.04 190);
   --card: oklch(0.99 0.006 85);
   --card-foreground: oklch(0.25 0.04 190);
