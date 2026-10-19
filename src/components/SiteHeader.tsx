@@ -5,7 +5,7 @@ import { settingsQuery, useCart } from "@/lib/store";
 export function SiteHeader() {
   const { data: s } = useQuery(settingsQuery);
   const { count } = useCart();
-  const name = s?.pharmacy_name ?? "Verdant Pharmacy";
+  const name = s?.pharmacy_name ?? "Phycadelics Verdant";
   return (
     <>
       <div className="bg-deep px-4 py-2 text-center text-xs text-deep-foreground">{s?.announcement ?? "\u00a0"}</div>

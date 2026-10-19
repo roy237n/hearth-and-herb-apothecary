@@ -6,9 +6,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Staff Login — Verdant Pharmacy" },
+      { title: "Staff Login — Phycadelics Verdant" },
       { name: "description", content: "Staff sign-in for the pharmacy admin dashboard." },
-      { property: "og:title", content: "Staff Login — Verdant Pharmacy" },
+      { property: "og:title", content: "Staff Login — Phycadelics Verdant" },
       { property: "og:description", content: "Staff sign-in for the pharmacy admin dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

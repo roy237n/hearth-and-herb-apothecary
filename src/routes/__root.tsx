@@ -80,10 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Verdant Pharmacy" },
+      { title: "Phycadelics Verdant" },
       { name: "description", content: "Licensed community pharmacy" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Verdant Pharmacy" },
+      { property: "og:title", content: "Phycadelics Verdant" },
       { property: "og:description", content: "Licensed community pharmacy" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
