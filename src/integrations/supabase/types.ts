@@ -14,6 +14,122 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_conversations: {
+        Row: {
+          admin_read_at: string
+          archived: boolean
+          created_at: string
+          email: string
+          id: string
+          last_visitor_at: string | null
+          name: string
+          token_hash: string
+        }
+        Insert: {
+          admin_read_at?: string
+          archived?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          last_visitor_at?: string | null
+          name: string
+          token_hash: string
+        }
+        Update: {
+          admin_read_at?: string
+          archived?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          last_visitor_at?: string | null
+          name?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          body: string
+          conversation_id: string
+          created_at: string
+          id: string
+          sender: string
+        }
+        Insert: {
+          body: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          sender: string
+        }
+        Update: {
+          body?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          sender?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      enquiries: {
+        Row: {
+          archived: boolean
+          created_at: string
+          email: string
+          id: string
+          is_read: boolean
+          message: string
+          name: string
+          subject: string
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          is_read?: boolean
+          message: string
+          name: string
+          subject: string
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          name?: string
+          subject?: string
+        }
+        Relationships: []
+      }
+      messaging_rate_limits: {
+        Row: {
+          hits: number
+          key: string
+          started_at: string
+        }
+        Insert: {
+          hits?: number
+          key: string
+          started_at?: string
+        }
+        Update: {
+          hits?: number
+          key?: string
+          started_at?: string
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           address: string
@@ -53,40 +169,55 @@ export type Database = {
       products: {
         Row: {
           active: boolean
+          catalogue_visible: boolean
           category: string
           created_at: string
           description: string
+          documentation_url: string
+          featured: boolean
           id: string
           image_url: string | null
+          intended_use: string
           name: string
           price: number
           requires_prescription: boolean
+          specifications: string
           stock: number
           tag: string | null
         }
         Insert: {
           active?: boolean
+          catalogue_visible?: boolean
           category?: string
           created_at?: string
           description?: string
+          documentation_url?: string
+          featured?: boolean
           id?: string
           image_url?: string | null
+          intended_use?: string
           name: string
           price?: number
           requires_prescription?: boolean
+          specifications?: string
           stock?: number
           tag?: string | null
         }
         Update: {
           active?: boolean
+          catalogue_visible?: boolean
           category?: string
           created_at?: string
           description?: string
+          documentation_url?: string
+          featured?: boolean
           id?: string
           image_url?: string | null
+          intended_use?: string
           name?: string
           price?: number
           requires_prescription?: boolean
+          specifications?: string
           stock?: number
           tag?: string | null
         }
@@ -96,38 +227,74 @@ export type Database = {
         Row: {
           address: string
           announcement: string
+          business_description: string
+          canonical_origin: string
+          contact_seo_description: string
+          contact_seo_title: string
           currency: string
           delivery_fee: number
           email: string
           free_delivery_over: number
+          home_intro: string
+          home_seo_description: string
+          home_seo_title: string
           hours: string
           id: number
           pharmacy_name: string
           phone: string
+          public_contact_verified: boolean
+          quality_text: string
+          services_text: string
+          shop_seo_description: string
+          shop_seo_title: string
         }
         Insert: {
           address?: string
           announcement?: string
+          business_description?: string
+          canonical_origin?: string
+          contact_seo_description?: string
+          contact_seo_title?: string
           currency?: string
           delivery_fee?: number
           email?: string
           free_delivery_over?: number
+          home_intro?: string
+          home_seo_description?: string
+          home_seo_title?: string
           hours?: string
           id?: number
           pharmacy_name?: string
           phone?: string
+          public_contact_verified?: boolean
+          quality_text?: string
+          services_text?: string
+          shop_seo_description?: string
+          shop_seo_title?: string
         }
         Update: {
           address?: string
           announcement?: string
+          business_description?: string
+          canonical_origin?: string
+          contact_seo_description?: string
+          contact_seo_title?: string
           currency?: string
           delivery_fee?: number
           email?: string
           free_delivery_over?: number
+          home_intro?: string
+          home_seo_description?: string
+          home_seo_title?: string
           hours?: string
           id?: number
           pharmacy_name?: string
           phone?: string
+          public_contact_verified?: boolean
+          quality_text?: string
+          services_text?: string
+          shop_seo_description?: string
+          shop_seo_title?: string
         }
         Relationships: []
       }
@@ -154,6 +321,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      consume_messaging_limit: {
+        Args: { max_hits: number; rate_key: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
