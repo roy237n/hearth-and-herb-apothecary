@@ -7,9 +7,9 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Staff Login — Phycadelics Verdant" },
-      { name: "description", content: "Staff sign-in for the pharmacy admin dashboard." },
+      { name: "description", content: "Staff sign-in for the Phycadelics Verdant admin dashboard." },
       { property: "og:title", content: "Staff Login — Phycadelics Verdant" },
-      { property: "og:description", content: "Staff sign-in for the pharmacy admin dashboard." },
+      { property: "og:description", content: "Staff sign-in for the Phycadelics Verdant admin dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const nav = useNavigate();
-  const [mode, setMode] = useState<"in" | "up">("in");
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -28,29 +28,21 @@ function AuthPage() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    if (mode === "in") {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      setBusy(false);
-      if (error) { toast.error(error.message); return; }
-      nav({ to: "/admin" });
-    } else {
-      const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/admin" } });
-      setBusy(false);
-      if (error) { toast.error(error.message); return; }
-      toast.success("Check your email to confirm your account, then sign in.");
-      setMode("in");
-    }
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setBusy(false);
+    if (error) { toast.error(error.message); return; }
+    nav({ to: "/admin" });
   }
 
   const field = "w-full rounded-xl border bg-card px-4 py-3 text-sm";
   return (
     <div className="grid min-h-screen place-items-center bg-background px-4 font-sans">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border bg-card p-8 shadow-xl">
-        <h1 className="font-display text-2xl font-bold">{mode === "in" ? "Staff sign in" : "Create staff account"}</h1>
+        <h1 className="font-display text-2xl font-bold">Staff sign in</h1>
         <input type="email" required placeholder="Email" className={field} value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" required minLength={8} placeholder="Password" className={field} value={password} onChange={(e) => setPassword(e.target.value)} />
         <button disabled={busy} className="w-full rounded-full bg-primary py-3 font-semibold text-primary-foreground disabled:opacity-50">
-          {busy ? "Please wait…" : mode === "in" ? "Sign in" : "Create account"}
+          {busy ? "Please wait…" : "Sign in"}
         </button>
         <p className="text-xs text-muted-foreground">Staff access only. New sign-ups are disabled.</p>
       </form>
