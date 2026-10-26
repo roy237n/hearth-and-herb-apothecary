@@ -1,7 +1,9 @@
 # Premium peptide store update
 
-- [ ] Confirm actual peptide catalogue, intended uses, target market, and verified business details.
-- [ ] Adapt existing design into Home, Shop, and Services & Contact without deleting records.
-- [ ] Improve product browsing and editable business content in the existing admin dashboard.
-- [ ] Add persistent private contact enquiries and customer/admin live chat.
-- [ ] Update SEO and verify key customer/admin flows, access controls, and mobile/desktop layouts.
+- [x] Preserve existing design and records; add Home, Shop, and Services & Contact.
+- [x] Add catalogue approval, dynamic categories, search, sorting, product details, documentation, and editable business/SEO content.
+- [x] Add private persistent enquiries and chat; verify customer submission, refresh persistence, wrong-token rejection, and anonymous read denial.
+- [x] Verify page metadata, passing tests, and desktop/mobile layouts with no horizontal overflow or runtime errors.
+- [ ] Administrator supplies actual products, specifications, verified contact details, and intended uses; purchasing remains disabled until eligibility is confirmed.
+- [ ] Administrator signs into preview to verify inbox, product editing, and two-way replies; requested test-session access was declined.
+- [ ] Supply the actual production domain in Business details and publish; canonical links and sitemap intentionally do not use a made-up domain.
