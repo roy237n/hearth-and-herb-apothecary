@@ -1,5 +1,7 @@
 # Premium peptide store update
 
+- [ ] Use Olympex as an information-topic reference; add original peptide, documentation, handling, and enquiry guidance without importing company-specific facts.
+
 - [x] Preserve existing design and records; add Home, Shop, and Services & Contact.
 - [x] Add catalogue approval, dynamic categories, search, sorting, product details, documentation, and editable business/SEO content.
 - [x] Add private persistent enquiries and chat; verify customer submission, refresh persistence, wrong-token rejection, and anonymous read denial.
