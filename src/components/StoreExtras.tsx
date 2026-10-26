@@ -5,10 +5,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { safeHttps } from '@/lib/messaging-schema';
 import type { Product } from '@/lib/store';
 export function FAQ() {return <section className="mx-auto max-w-5xl px-4 py-12"><h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2><div className="mt-5 divide-y">{[
- ['Where can I find product specifications?','Specifications and supporting documents appear on individual product details when supplied. Contact us if you need information that is not listed.'],
+ ['What information should I check before enquiring?','Check the product identity, stated quantity or concentration where supplied, intended use, availability and any restrictions. Specifications are product-specific; information about one peptide does not apply automatically to another.'],
+ ['What is a certificate of analysis?','A certificate of analysis (COA) is a report of test results for a particular sample or batch. Where a document is supplied, compare its product name and batch or lot number with the item. A certificate does not by itself establish medical approval or suitability for human use.'],
+ ['What do HPLC and LC-MS results tell me?','High-performance liquid chromatography (HPLC) separates sample components and can be used to assess purity under a stated method. Liquid chromatography–mass spectrometry (LC-MS) can support identification. Neither result alone establishes sterility, safety or suitability for a particular use.'],
+ ['Where can I find product specifications?','Specifications and supporting documents appear on individual product details when supplied. If a report is missing, ask for it rather than assuming the item has been tested or certified.'],
  ['Can I place an order?','The catalogue currently accepts enquiries only. Product eligibility and destination requirements must be confirmed before any purchase.'],
  ['Do you accept international enquiries?','Yes. Phycadelics Verdant is based in the US and UK and welcomes worldwide enquiries. Availability and shipping eligibility must be confirmed for each destination.'],
- ['Can you advise on medical use?','This website does not provide medical advice. Intended use and any applicable restrictions must be checked for each product.']
+ ['How should a product be stored or handled?','Follow the product-specific label, supplier instructions and safety data sheet where provided. Storage conditions depend on the formulation and packaging; do not assume that all peptides need the same temperature or handling. Request missing instructions before handling a product.'],
+ ['What are the shipping times and charges?','Shipping arrangements, costs, delivery estimates and destination restrictions have not yet been published. Include your destination in an enquiry and request confirmation before making any purchase.'],
+ ['Can you advise on medical use?','This website does not provide medical advice, dosing or administration instructions. Intended use and any applicable restrictions must be checked for each product. A research label or a purity result is not evidence of approval for human or veterinary use.']
  ].map(([q,a])=><details className="py-4" key={q}><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{a}</p></details>)}</div></section>;}
 export function ProductGrid({products,currency}:{products:Product[];currency:string}) {
  const [selected,setSelected]=useState<Product|null>(null);

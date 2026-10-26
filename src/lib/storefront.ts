@@ -3,7 +3,9 @@ import { getStorefront } from './catalogue.functions';
 import { safeHttps } from './messaging-schema';
 import type { Settings, Product } from './store';
 export const storefrontQuery=queryOptions({queryKey:['storefront'],queryFn:()=>getStorefront(),staleTime:30000});
-export const overview='Peptides are short chains of amino acids. Browse product-specific information, availability and supporting documentation, or contact Phycadelics Verdant with a catalogue enquiry.';
+export const overview='Peptides are short chains of amino acids linked by peptide bonds. Their identity, composition and intended use vary from product to product. Explore catalogue information and available documentation, or contact our team about a specific item.';
+export const documentationOverview='A product specification describes the item; a certificate of analysis (COA), where available, reports results for a particular batch. Check that the product name and batch or lot identifier match the item you are enquiring about. Review the report date, testing method, laboratory identity and results rather than relying on a purity figure alone.';
+export const servicesOverview='Enquire about peptide product identity, listed specifications, availability and supporting documents. Include the product name and, if available, its batch or lot number so the information can be matched to the correct item. For international enquiries, include your destination country; availability and any sale or import requirements need to be checked individually.';
 export function canonicalOrigin(value?: string) { const href=safeHttps(value ?? ''); if(!href)return undefined; const u=new URL(href); return u.pathname==='/' && !u.search && !u.hash ? u.origin : undefined; }
 export function pageHead(page:'home'|'shop'|'contact',settings?:Settings|null) {
  const name=settings?.pharmacy_name || 'Phycadelics Verdant';
