@@ -1,10 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import vitamins from "@/assets/promo-vitamins.jpg";
 import formula from "@/assets/promo-formula.jpg";
 import { storefrontQuery, pageHead, overview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
@@ -31,6 +29,7 @@ function Index() {
   const cur = s?.currency ?? "$";
   const name = s?.pharmacy_name ?? "Phycadelics Verdant";
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => setSlide((x) => (x + 1) % slides.length), 6000);
     return () => clearInterval(t);
   }, []);
@@ -50,9 +49,7 @@ function Index() {
             <div className="z-10 flex flex-col justify-center p-8 md:p-12">
               <p className="text-sm text-muted-foreground">{sl.kicker}</p>
               <h1 className="mt-4 font-display text-3xl font-semibold leading-tight md:text-5xl">{name}</h1>
-              <a href={sl.cta} className="mt-8 w-fit bg-primary px-7 py-3 font-display text-sm font-semibold uppercase tracking-wide text-primary-foreground hover:opacity-90">
-                Shop now
-              </a>
+              <Button asChild className="mt-8 w-fit"><Link to="/shop">Browse products</Link></Button>
             </div>
             <img src={sl.img} alt="Illustrative scientist preparing a laboratory sample; not a photograph of our facilities" className="h-64 w-full object-cover md:h-full" width={1280} height={960} />
             <Button variant="ghost" size="icon" onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous" className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-foreground/60 hover:text-foreground"><ChevronLeft /></Button>
