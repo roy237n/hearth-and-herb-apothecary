@@ -13,3 +13,4 @@
 - Use three public content routes with shared storefront components; keep administration under the managed authenticated layout.
 - Visitor messaging uses server-validated random conversation capabilities stored only as hashes; private tables expose ordinary administrative reads/writes through role-scoped RLS.
 - Public page data is loaded through server publishable-client reads and route query loaders; SEO derives from editable settings and a validated production origin.
+- Keep extended educational homepage content in a dedicated browser-safe component; uploaded homepage photos use CDN asset pointers and do not create catalogue records.
