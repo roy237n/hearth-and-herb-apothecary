@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import pipette from '@/assets/laboratory-pipette.jpg.asset.json';
-import workbench from '@/assets/laboratory-workbench.jpg.asset.json';
-import packaging from '@/assets/supplied-peptide-packaging.jpeg.asset.json';
+import pipette from '@/assets/enhanced-laboratory-pipette.jpg.asset.json';
+import workbench from '@/assets/enhanced-laboratory-workbench.jpg.asset.json';
+import packaging from '@/assets/enhanced-supplied-peptide-packaging.jpeg.asset.json';
 
 const topics = [
   { title: 'Identity & composition', text: 'A peptide is a chain of amino acids joined by peptide bonds. Its amino-acid sequence and any chemical modifications help define its identity. Similar names do not mean that two compounds have the same composition or intended use.' },
