@@ -2,8 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import formula from "@/assets/promo-formula.jpg";
+import laboratoryTeam from "@/assets/laboratory-team.jpg.asset.json";
+import laboratorySample from "@/assets/laboratory-sample.jpg.asset.json";
+import { PeptideInformation } from "@/components/PeptideInformation";
 import { storefrontQuery, pageHead, overview, documentationOverview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
 import { FAQ, ProductGrid } from "@/components/StoreExtras";
@@ -17,8 +18,8 @@ export const Route = createFileRoute("/")({
 });
 
 const slides = [
-  { img: hero, kicker: "Peptide product information", title: "Phycadelics Verdant", cta: "/shop" },
-  { img: formula, kicker: "Product enquiries & documentation", title: "Phycadelics Verdant", cta: "/shop" },
+  { img: laboratoryTeam.url, alt: "Scientists preparing samples in an illustrative laboratory photograph", kicker: "Peptide products & information" },
+  { img: laboratorySample.url, alt: "Scientist transferring a sample with a pipette in an illustrative laboratory photograph", kicker: "Product enquiries & documentation" },
 ];
 
 function Index() {
@@ -45,18 +46,18 @@ function Index() {
       <div className="relative">
         <div className="absolute inset-x-0 top-0 h-[78%] bg-primary" />
         <div className="relative mx-auto grid max-w-7xl gap-5 px-4 pb-6 lg:grid-cols-[1fr_380px]">
-          <div className="relative grid min-h-[420px] overflow-hidden bg-muted md:grid-cols-2">
-            <div className="z-10 flex flex-col justify-center p-8 md:p-12">
-              <p className="text-sm text-muted-foreground">{sl.kicker}</p>
-              <h1 className="mt-4 font-display text-3xl font-semibold leading-tight md:text-5xl">{name}</h1>
-              <Button asChild className="mt-8 w-fit"><Link to="/shop">Browse products</Link></Button>
+          <div className="relative min-h-[360px] overflow-hidden bg-muted md:min-h-[420px]">
+            <img src={sl.img} alt={sl.alt} className="absolute inset-0 h-full w-full object-cover" width={612} height={409} fetchPriority="high" />
+            <div className="absolute inset-0 bg-gradient-to-r from-deep/95 via-deep/60 to-transparent" />
+            <div className="relative z-10 flex min-h-[360px] max-w-lg flex-col justify-center px-10 py-12 text-primary-foreground md:min-h-[420px] md:px-12">
+              <p className="text-xs font-semibold uppercase">{sl.kicker}</p>
+              <h1 className="mt-4 break-words font-display text-3xl font-semibold leading-tight md:text-4xl">{name}</h1>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed">Explore peptide information, product-specific specifications and supporting documentation.</p>
+              <Button asChild variant="secondary" className="mt-6 w-fit"><Link to="/shop">Browse products</Link></Button>
             </div>
-            <img src={sl.img} alt="Illustrative scientist preparing a laboratory sample; not a photograph of our facilities" className="h-64 w-full object-cover md:h-full" width={1280} height={960} />
-            <Button variant="ghost" size="icon" onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous" className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-foreground/60 hover:text-foreground"><ChevronLeft /></Button>
-            <Button variant="ghost" size="icon" onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-primary-foreground/80 hover:text-primary-foreground"><ChevronRight /></Button>
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
-              {slides.map((_, i) => <span key={i} className={`h-2 w-2 rounded-full ${i === slide ? "bg-accent" : "bg-foreground/25"}`} />)}
-            </div>
+            <p className="absolute bottom-3 left-10 z-10 text-[10px] text-primary-foreground">Illustrative laboratory photography</p>
+            <Button variant="ghost" size="icon" onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous photo" className="absolute left-1 top-1/2 z-20 -translate-y-1/2 text-primary-foreground"><ChevronLeft /></Button>
+            <Button variant="ghost" size="icon" onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next photo" className="absolute right-1 top-1/2 z-20 -translate-y-1/2 text-primary-foreground"><ChevronRight /></Button>
           </div>
           <div className="grid gap-5">
             <div className="relative min-h-[200px] overflow-hidden bg-card p-7 pr-28 shadow-sm">
@@ -65,7 +66,7 @@ function Index() {
               <Benzene className="absolute -bottom-10 -right-4 w-36 text-foreground/70" />
             </div>
             <div className="relative min-h-[200px] overflow-hidden">
-              <img src={formula} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={laboratorySample.url} alt="Scientist preparing a laboratory sample" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/60 to-transparent" />
               <div className="relative p-7 text-primary-foreground">
                 <p className="font-display text-lg font-semibold">Product enquiries</p>
@@ -113,6 +114,7 @@ function Index() {
         <ProductGrid products={list} currency={cur} />
       </section>
       <section className="border-y bg-muted"><div className="mx-auto max-w-5xl px-4 py-10"><h2 className="font-display text-2xl font-semibold">Product information & documentation</h2><p className="mt-4 whitespace-pre-wrap leading-relaxed text-muted-foreground">{s?.quality_text || documentationOverview}</p><p className="mt-3 text-sm text-muted-foreground">Documents and specifications are shown only when supplied. Testing methods, purity results and certificates must be checked for the specific item, not assumed for the whole catalogue.</p><Button asChild variant="link" className="mt-3 px-0"><Link to="/services-contact">Enquire about product documentation</Link></Button></div></section>
+      <PeptideInformation />
       <FAQ />
       <SiteFooter />
     </div>
