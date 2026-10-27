@@ -1,5 +1,7 @@
 # Premium peptide store update
 
+- [ ] Replace homepage AI imagery with uploaded photographs and expand original peptide write-ups while preserving the current identity.
+
 - [x] Use Olympex as an information-topic reference; add original peptide, documentation, handling, and enquiry guidance without importing company-specific facts. Verified FAQ expansion and documentation enquiry link in the browser; existing tests pass.
 
 - [x] Preserve existing design and records; add Home, Shop, and Services & Contact.
