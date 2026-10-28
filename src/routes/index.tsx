@@ -117,7 +117,7 @@ function Index() {
         <div className="flex items-center justify-between gap-4 border-b pb-3"><h2 className="font-display text-2xl font-semibold">Featured products</h2><Button asChild variant="link"><Link to="/shop">View catalogue</Link></Button></div>
         <ProductGrid products={list} currency={cur} />
       </section>
-      <section className="border-y bg-muted"><div className="mx-auto max-w-5xl px-4 py-10"><h2 className="font-display text-2xl font-semibold">Product information & documentation</h2><p className="mt-4 whitespace-pre-wrap leading-relaxed text-muted-foreground">{s?.quality_text || documentationOverview}</p><p className="mt-3 text-sm text-muted-foreground">Documents and specifications are shown only when supplied. Testing methods, purity results and certificates must be checked for the specific item, not assumed for the whole catalogue.</p><Button asChild variant="link" className="mt-3 px-0"><Link to="/services-contact">Enquire about product documentation</Link></Button></div></section>
+      <section className="border-y bg-muted"><div className="mx-auto max-w-5xl px-4 py-10"><h2 className="font-display text-2xl font-semibold">Product information & documentation</h2><p className="mt-4 whitespace-pre-wrap leading-relaxed text-muted-foreground">{s?.quality_text || documentationOverview}</p><p className="mt-3 text-sm text-muted-foreground">Match each report to the relevant product and batch. Purity, identity and measured content describe different properties; review the methods and scope of testing together.</p><Button asChild variant="link" className="mt-3 px-0"><Link to="/services-contact">Enquire about product documentation</Link></Button></div></section>
       <PeptideInformation />
       <FAQ />
       <SiteFooter />

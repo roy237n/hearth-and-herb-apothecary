@@ -82,7 +82,7 @@ export function SiteFooter() {
             </p>
           </div>
           <div className="text-sm opacity-90">
-            <p className="font-display font-semibold">Visit us</p>
+            <p className="font-display font-semibold">Our business</p>
             <p className="mt-2">US & UK · Worldwide enquiries</p>
             {s?.public_contact_verified && s.address && <p>{s.address}</p>}
             {s?.public_contact_verified && s.hours && <p>{s.hours}</p>}
