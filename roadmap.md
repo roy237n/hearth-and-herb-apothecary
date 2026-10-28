@@ -1,5 +1,7 @@
 # Premium peptide store update
 
+- [ ] Rewrite public storefront and educational copy professionally using reference information topics, without demo framing, layout changes, copied claims, or changes to purchase eligibility.
+
 - [x] Preserve the current layout and subtly enhance all five uploaded photos; all four laboratory images appear in the existing slider and the packaging remains in its existing homepage section. Verified image loading, navigation, desktop/mobile layout, nine tests, and build success.
 - [x] Review reference-information gaps provisionally; existing content covers the core topics. No additional copy or category changes made in this photo-only update.
 - [ ] Complete the uploaded brief's full reference-site review; blocked by failed direct page retrieval, so completeness remains unverified.
