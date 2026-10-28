@@ -1,6 +1,8 @@
 # Premium peptide store update
 
-- [ ] Preserve the current layout, subtly enhance all five uploaded photos, include all laboratory photos in the existing front-page slider, and review reference-information gaps.
+- [x] Preserve the current layout and subtly enhance all five uploaded photos; all four laboratory images appear in the existing slider and the packaging remains in its existing homepage section. Verified image loading, navigation, desktop/mobile layout, nine tests, and build success.
+- [x] Review reference-information gaps provisionally; existing content covers the core topics. No additional copy or category changes made in this photo-only update.
+- [ ] Complete the uploaded brief's full reference-site review; blocked by failed direct page retrieval, so completeness remains unverified.
 
 - [x] Replace homepage AI imagery with all five uploaded photographs and expand original peptide write-ups. Verified photo rendering, slider navigation, mobile overflow, and existing tests; packaging is illustrative, not a sale listing.
 
