@@ -56,7 +56,7 @@ function Index() {
             <div className="relative z-10 flex min-h-[360px] max-w-lg flex-col justify-center px-10 py-12 text-primary-foreground md:min-h-[420px] md:px-12">
               <p className="text-xs font-semibold uppercase">{sl.kicker}</p>
               <h1 className="mt-4 break-words font-display text-3xl font-semibold leading-tight md:text-4xl">{name}</h1>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed">Explore peptide information, product-specific specifications and supporting documentation.</p>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed">Peptide products, clear specifications and product support. Browse our catalogue or contact our team.</p>
               <Button asChild variant="secondary" className="mt-6 w-fit"><Link to="/shop">Browse products</Link></Button>
             </div>
             <p className="absolute bottom-3 left-10 z-10 text-[10px] text-primary-foreground">Illustrative laboratory photography</p>
@@ -66,14 +66,14 @@ function Index() {
           <div className="grid gap-5">
             <div className="relative min-h-[200px] overflow-hidden bg-card p-7 pr-28 shadow-sm">
               <h2 className="relative z-10 font-display text-2xl font-semibold text-foreground">{name} Online Shop</h2>
-              <p className="relative z-10 mt-1 text-sm text-muted-foreground">Products · Information · Enquiries</p>
+              <p className="relative z-10 mt-1 text-sm text-muted-foreground">Peptides · Specifications · Support</p>
               <Benzene className="absolute -bottom-10 -right-4 w-36 text-foreground/70" />
             </div>
             <div className="relative min-h-[200px] overflow-hidden">
               <img src={laboratorySample.url} alt="Scientist preparing a laboratory sample" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/60 to-transparent" />
               <div className="relative p-7 text-primary-foreground">
-                <p className="font-display text-lg font-semibold">Product enquiries</p>
+                <p className="font-display text-lg font-semibold">Customer support</p>
                 <p className="text-sm opacity-90">Availability & documentation</p>
                 <Button asChild variant="secondary" className="mt-4"><Link to="/services-contact">Contact us</Link></Button>
               </div>
@@ -95,7 +95,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 md:grid-cols-4">
           {[
             [ShieldCheck, "Product information", "Item-specific details"],
-            [FlaskConical, "Documentation", "Where supplied"],
+            [FlaskConical, "Documentation", "Batch-specific reports"],
             [Truck, "International enquiries", "Destination checks apply"],
             [Stethoscope, "Contact our team", "Product enquiries"],
           ].map(([Icon, t, d]) => {
