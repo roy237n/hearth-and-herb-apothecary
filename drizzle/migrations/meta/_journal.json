@@ -15,6 +15,13 @@
       "when": 1792572782771,
       "tag": "0001_peptide_catalogue_content_and_private_messaging",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793379250319,
+      "tag": "0002_create_certificates",
+      "breakpoints": true
     }
   ]
 }
