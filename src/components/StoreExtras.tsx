@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { safeHttps } from '@/lib/messaging-schema';
-import type { Product } from '@/lib/store';
+import { useCart, type Product } from '@/lib/store';
 export function FAQ() {return <section className="mx-auto max-w-5xl px-4 py-12"><h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2><div className="mt-5 divide-y">{[
  ['What information should I review for a peptide product?','Review the compound identity, formulation, stated quantity, intended use and batch documentation. Molecular identifiers describe the compound; analytical reports describe the tested sample. For blends, check the individual components and their stated amounts.'],
  ['What is a certificate of analysis?','A certificate of analysis (COA) is a report of test results for a particular sample or batch. Where a document is supplied, compare its product name and batch or lot number with the item. A certificate does not by itself establish medical approval or suitability for human use.'],
