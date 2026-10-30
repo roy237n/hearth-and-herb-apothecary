@@ -14,9 +14,9 @@ import { enhanceProductImage } from "@/lib/images.functions";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard — Phycadelics Verdant" },
+      { title: "Admin Dashboard — GL Biochem Peptide" },
       { name: "description", content: "Manage products, prices, orders and pharmacy details." },
-      { property: "og:title", content: "Admin Dashboard — Phycadelics Verdant" },
+      { property: "og:title", content: "Admin Dashboard — GL Biochem Peptide" },
       { property: "og:description", content: "Manage products, prices, orders and pharmacy details." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

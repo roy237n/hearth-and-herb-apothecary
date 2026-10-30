@@ -6,10 +6,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Staff Login — Phycadelics Verdant" },
-      { name: "description", content: "Staff sign-in for the Phycadelics Verdant admin dashboard." },
-      { property: "og:title", content: "Staff Login — Phycadelics Verdant" },
-      { property: "og:description", content: "Staff sign-in for the Phycadelics Verdant admin dashboard." },
+      { title: "Staff Login — GL Biochem Peptide" },
+      { name: "description", content: "Staff sign-in for the GL Biochem Peptide admin dashboard." },
+      { property: "og:title", content: "Staff Login — GL Biochem Peptide" },
+      { property: "og:description", content: "Staff sign-in for the GL Biochem Peptide admin dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

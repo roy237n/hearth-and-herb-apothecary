@@ -2,10 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
-import laboratoryTeam from "@/assets/enhanced-laboratory-team.jpg.asset.json";
-import laboratorySample from "@/assets/enhanced-laboratory-sample.jpg.asset.json";
-import laboratoryPipette from "@/assets/enhanced-laboratory-pipette.jpg.asset.json";
-import laboratoryWorkbench from "@/assets/enhanced-laboratory-workbench.jpg.asset.json";
+import laboratoryTeam from "@/assets/polished-enhanced-laboratory-team.jpg.asset.json";
+import laboratorySample from "@/assets/polished-enhanced-laboratory-sample.jpg.asset.json";
+import laboratoryPipette from "@/assets/polished-enhanced-laboratory-pipette.jpg.asset.json";
+import laboratoryWorkbench from "@/assets/polished-enhanced-laboratory-workbench.jpg.asset.json";
 import { PeptideInformation } from "@/components/PeptideInformation";
 import { storefrontQuery, pageHead, overview, documentationOverview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ function Index() {
   const s = data.settings;
   const [slide, setSlide] = useState(0);
   const cur = s?.currency ?? "$";
-  const name = s?.pharmacy_name ?? "Phycadelics Verdant";
+  const name = s?.pharmacy_name ?? "GL Biochem Peptide";
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => setSlide((x) => (x + 1) % slides.length), 6000);
