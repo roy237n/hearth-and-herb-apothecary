@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { safeHttps } from "@/lib/messaging-schema";
 import { canonicalOrigin } from "@/lib/storefront";
 import { enhanceProductImage } from "@/lib/images.functions";
+import { certificatesQuery, formatCertDates, type Certificate } from "@/lib/certificates";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -32,7 +33,7 @@ function Admin() {
   const { user } = Route.useRouteContext();
   const nav = useNavigate();
   const qc = useQueryClient();
-  const [tab, setTab] = useState<"products" | "orders" | "settings" | "inbox">("products");
+  const [tab, setTab] = useState<"products" | "orders" | "certificates" | "settings" | "inbox">("products");
   const { data: isAdmin, isLoading } = useQuery({
     queryKey: ["is-admin", user.id],
     queryFn: async () => {
@@ -68,7 +69,7 @@ function Admin() {
           </div>
         </div>
         <nav className="mx-auto flex max-w-6xl gap-2 px-4 pb-3">
-          {(["products", "orders", "settings", "inbox"] as const).map((t) => (
+          {(["products", "orders", "certificates", "settings", "inbox"] as const).map((t) => (
             <Button key={t} onClick={() => setTab(t)} className={`rounded-full px-4 py-1.5 text-sm capitalize ${tab === t ? "bg-accent text-accent-foreground" : "bg-deep-foreground/10"}`}>
               {t}
             </Button>
@@ -78,6 +79,7 @@ function Admin() {
       <main className="mx-auto max-w-6xl px-4 py-8">
         {tab === "products" && <ProductsTab />}
         {tab === "orders" && <OrdersTab />}
+        {tab === "certificates" && <CertificatesTab />}
         {tab === "settings" && <SettingsTab />}
         {tab === "inbox" && <AdminInbox />}
       </main>
@@ -296,6 +298,127 @@ function SettingsTab() {
         </label>
       ))}
       <Button className="w-fit rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground">Save settings</Button>
+    </form>
+  );
+}
+
+const emptyCert = { name: "", description: "", issuing_organisation: "", issue_date: "", expiry_date: "", publicly_visible: false };
+
+function CertificatesTab() {
+  const qc = useQueryClient();
+  const { data: certs = [] } = useQuery(certificatesQuery);
+  const [editing, setEditing] = useState<Certificate | "new" | null>(null);
+
+  async function remove(c: Certificate) {
+    if (!confirm(`Delete certificate "${c.name}"? This cannot be undone.`)) return;
+    const { error } = await supabase.from("certificates").delete().eq("id", c.id);
+    if (error) { toast.error(error.message); return; }
+    await supabase.storage.from("certificates").remove([c.file_path]);
+    toast.success("Certificate deleted");
+    qc.invalidateQueries({ queryKey: ["certificates"] });
+  }
+
+  async function toggleVisible(c: Certificate) {
+    const { error } = await supabase.from("certificates").update({ publicly_visible: !c.publicly_visible }).eq("id", c.id);
+    if (error) { toast.error(error.message); return; }
+    qc.invalidateQueries({ queryKey: ["certificates"] });
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between">
+        <h2 className="font-display text-2xl font-bold">Certificates ({certs.length})</h2>
+        <Button onClick={() => setEditing("new")} className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">+ Add certificate</Button>
+      </div>
+      <p className="mt-2 text-sm text-muted-foreground">Upload only genuine documents issued to the business. Tick "Show on website" to publish one.</p>
+      {editing && <CertificateForm cert={editing === "new" ? null : editing} onClose={() => setEditing(null)} />}
+      <div className="mt-6 space-y-3">
+        {certs.length === 0 && <p className="text-muted-foreground">No certificates uploaded yet.</p>}
+        {certs.map((c) => (
+          <div key={c.id} className="flex flex-wrap items-center gap-4 rounded-xl border bg-card p-4">
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold">{c.name} {!c.publicly_visible && <span className="text-xs text-muted-foreground">(not published)</span>}</p>
+              <p className="text-xs text-muted-foreground">{c.issuing_organisation || "No issuing organisation"} {formatCertDates(c) && `· ${formatCertDates(c)}`}</p>
+            </div>
+            <Button asChild variant="outline" className="text-sm"><a href={c.file_url} target="_blank" rel="noopener noreferrer">Preview</a></Button>
+            <Button onClick={() => toggleVisible(c)} className="rounded-full bg-secondary px-3 py-1 text-sm">{c.publicly_visible ? "Unpublish" : "Show on website"}</Button>
+            <Button onClick={() => setEditing(c)} className="rounded-full bg-secondary px-3 py-1 text-sm">Edit</Button>
+            <Button onClick={() => remove(c)} className="text-sm text-destructive">Delete</Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CertificateForm({ cert, onClose }: { cert: Certificate | null; onClose: () => void }) {
+  const qc = useQueryClient();
+  const [f, setF] = useState(() =>
+    cert
+      ? { name: cert.name, description: cert.description, issuing_organisation: cert.issuing_organisation, issue_date: cert.issue_date ?? "", expiry_date: cert.expiry_date ?? "", publicly_visible: cert.publicly_visible }
+      : emptyCert,
+  );
+  const [file, setFile] = useState<File | null>(null);
+  const [busy, setBusy] = useState<string | null>(null);
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      let file_path = cert?.file_path ?? "";
+      let file_url = cert?.file_url ?? "";
+      let file_type = cert?.file_type ?? "";
+      if (file) {
+        setBusy("Uploading document…");
+        file_path = `docs/${crypto.randomUUID()}-${file.name.replace(/[^a-z0-9.]/gi, "_")}`;
+        const up = await supabase.storage.from("certificates").upload(file_path, file, { contentType: file.type });
+        if (up.error) throw up.error;
+        const signed = await supabase.storage.from("certificates").createSignedUrl(file_path, 60 * 60 * 24 * 365 * 10);
+        if (signed.error) throw signed.error;
+        file_url = signed.data.signedUrl;
+        file_type = file.type;
+      }
+      if (!file_path) { toast.error("Upload a certificate image or PDF"); return; }
+      setBusy("Saving…");
+      const row = {
+        name: f.name.trim(),
+        description: f.description.trim(),
+        issuing_organisation: f.issuing_organisation.trim(),
+        issue_date: f.issue_date || null,
+        expiry_date: f.expiry_date || null,
+        publicly_visible: f.publicly_visible,
+        file_path,
+        file_url,
+        file_type,
+      };
+      const { error } = cert
+        ? await supabase.from("certificates").update(row).eq("id", cert.id)
+        : await supabase.from("certificates").insert(row);
+      if (error) throw error;
+      toast.success("Certificate saved");
+      qc.invalidateQueries({ queryKey: ["certificates"] });
+      onClose();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  return (
+    <form onSubmit={save} className="mt-6 grid gap-3 rounded-2xl border bg-muted p-5 md:grid-cols-2">
+      <h3 className="font-display text-lg font-bold md:col-span-2">{cert ? "Edit certificate" : "New certificate"}</h3>
+      <label className="text-sm">Name<input required className={field} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></label>
+      <label className="text-sm">Issuing organisation<input className={field} value={f.issuing_organisation} onChange={(e) => setF({ ...f, issuing_organisation: e.target.value })} /></label>
+      <label className="text-sm">Issue date<input type="date" className={field} value={f.issue_date} onChange={(e) => setF({ ...f, issue_date: e.target.value })} /></label>
+      <label className="text-sm">Expiry date (optional)<input type="date" className={field} value={f.expiry_date} onChange={(e) => setF({ ...f, expiry_date: e.target.value })} /></label>
+      <label className="text-sm md:col-span-2">Description<textarea className={field} value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} /></label>
+      <label className="text-sm">Document (image or PDF){cert && " — leave empty to keep current"}<input type="file" accept="image/*,application/pdf" className={field} onChange={(e) => setFile(e.target.files?.[0] ?? null)} /></label>
+      <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={f.publicly_visible} onChange={(e) => setF({ ...f, publicly_visible: e.target.checked })} /> Show on website</label>
+      <div className="flex items-center gap-3 md:col-span-2">
+        <Button disabled={!!busy} className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Save</Button>
+        <Button type="button" onClick={onClose} className="text-sm underline">Cancel</Button>
+        {busy && <span className="text-sm text-muted-foreground">{busy}</span>}
+      </div>
     </form>
   );
 }

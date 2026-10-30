@@ -1,5 +1,13 @@
 # Premium peptide store update
 
+## Modern Apothecary audit brief (uploaded 2026-10-30)
+- [x] Certificates: certificates table + private bucket + RLS, admin Certificates tab (upload/edit/delete with confirm/publish toggle/preview), public Certificates & accreditations section on Services & Contact.
+- [x] Legal pages: /terms, /privacy, /shipping-returns, /disclaimer with honest enquiry-only wording, footer links, sitemap entries.
+- [x] Admin security: forgot-password + /reset-password flow; sign-ups stay disabled; server-side role checks unchanged.
+- [ ] Payments and order emails stay disabled pending merchant eligibility and email-provider credentials (brief allows later activation).
+- [ ] Browser-verify admin Certificates tab (needs admin session; previously declined) and public legal pages.
+
+## Earlier work
 - [x] Add supplied brand, WhatsApp and email; replace Lovable favicon; subtly enhance all five photos; add searchable product documentation on Shop while preserving layout. Verified browser contact links, icon, 13 tests and build success.
 
 - [x] Rewrite public storefront and educational copy professionally using reference information topics, without demo framing, layout changes, copied claims, or changes to purchase eligibility. Verified Home, Shop and Contact text, 10 tests and build success.

@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      certificates: {
+        Row: {
+          created_at: string
+          description: string
+          expiry_date: string | null
+          file_path: string
+          file_type: string
+          file_url: string
+          id: string
+          issue_date: string | null
+          issuing_organisation: string
+          name: string
+          publicly_visible: boolean
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          expiry_date?: string | null
+          file_path: string
+          file_type?: string
+          file_url: string
+          id?: string
+          issue_date?: string | null
+          issuing_organisation?: string
+          name: string
+          publicly_visible?: boolean
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          expiry_date?: string | null
+          file_path?: string
+          file_type?: string
+          file_url?: string
+          id?: string
+          issue_date?: string | null
+          issuing_organisation?: string
+          name?: string
+          publicly_visible?: boolean
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           admin_read_at: string

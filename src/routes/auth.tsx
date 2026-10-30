@@ -25,6 +25,8 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const [resetSent, setResetSent] = useState(false);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -34,9 +36,29 @@ function AuthPage() {
     nav({ to: "/admin" });
   }
 
+  async function sendReset(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setBusy(false);
+    if (error) { toast.error(error.message); return; }
+    setResetSent(true);
+  }
+
   const field = "w-full rounded-xl border bg-card px-4 py-3 text-sm";
   return (
     <div className="grid min-h-screen place-items-center bg-background px-4 font-sans">
+      {resetSent ? (
+        <div className="w-full max-w-sm space-y-4 rounded-2xl border bg-card p-8 shadow-xl">
+          <h1 className="font-display text-2xl font-bold">Check your email</h1>
+          <p className="text-sm text-muted-foreground">
+            If an account exists for {email}, a password-reset link has been sent. The link expires after a short time.
+          </p>
+          <button onClick={() => setResetSent(false)} className="text-sm underline">Back to sign in</button>
+        </div>
+      ) : (
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border bg-card p-8 shadow-xl">
         <h1 className="font-display text-2xl font-bold">Staff sign in</h1>
         <input type="email" required placeholder="Email" className={field} value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -44,8 +66,12 @@ function AuthPage() {
         <button disabled={busy} className="w-full rounded-full bg-primary py-3 font-semibold text-primary-foreground disabled:opacity-50">
           {busy ? "Please wait…" : "Sign in"}
         </button>
+        <button type="button" onClick={(e) => { if (email) void sendReset(e); else toast.error("Enter your email first"); }} className="w-full text-sm underline">
+          Forgot password?
+        </button>
         <p className="text-xs text-muted-foreground">Staff access only. New sign-ups are disabled.</p>
       </form>
+      )}
     </div>
   );
 }

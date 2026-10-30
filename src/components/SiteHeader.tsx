@@ -94,7 +94,13 @@ export function SiteFooter() {
             <Link to="/admin" className="mt-4 inline-block text-xs underline opacity-70">Staff login</Link>
           </div>
         </div>
-        <p className="border-t border-deep-foreground/10 py-4 text-center text-xs opacity-60">© {new Date().getFullYear()} {s?.pharmacy_name}. All rights reserved.</p>
+        <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-x-6 gap-y-2 border-t border-deep-foreground/10 px-4 pt-6 text-xs opacity-80">
+          <Link to="/terms" className="underline">Terms & Conditions</Link>
+          <Link to="/privacy" className="underline">Privacy Policy</Link>
+          <Link to="/shipping-returns" className="underline">Shipping & Returns</Link>
+          <Link to="/disclaimer" className="underline">Product Disclaimer</Link>
+        </div>
+        <p className="py-4 text-center text-xs opacity-60">© {new Date().getFullYear()} {s?.pharmacy_name}. All rights reserved.</p>
       </footer>
       <LiveChat />
     </>
