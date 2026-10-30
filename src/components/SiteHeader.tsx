@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { Clock, MapPin, Phone, Search, ShoppingCart, User, ChevronDown, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Clock, MapPin, Moon, Phone, Search, ShoppingCart, Sun, User, ChevronDown, MessageCircle } from "lucide-react";
 import { storefrontQuery, overview } from "@/lib/storefront";
 import { useCart } from "@/lib/store";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,16 @@ export function SiteHeader() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const cart = useCart();
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains("dark"));
+  }, []);
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch {}
+  };
   const name = s?.pharmacy_name ?? "GL Biochem Peptide";
   const cats = Array.from(new Set(products.map((p) => p.category)));
 
@@ -66,6 +76,9 @@ export function SiteHeader() {
             <ShoppingCart className="h-5 w-5" />
             {cart.count > 0 && <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">{cart.count}</span>}
           </Link>
+          <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}>
+            {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
         </div>
       </div>
     </>
