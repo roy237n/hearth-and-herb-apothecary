@@ -32,7 +32,7 @@ function Index() {
   const s = data.settings;
   const [slide, setSlide] = useState(0);
   const cur = s?.currency ?? "$";
-  const name = s?.pharmacy_name ?? "Phycadelics Verdant";
+  const name = s?.pharmacy_name ?? "GL Biochem Peptide";
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => setSlide((x) => (x + 1) % slides.length), 6000);

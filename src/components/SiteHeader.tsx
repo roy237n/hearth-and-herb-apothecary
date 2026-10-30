@@ -13,7 +13,7 @@ export function SiteHeader() {
   const nav = useNavigate();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
-  const name = s?.pharmacy_name ?? "Phycadelics Verdant";
+  const name = s?.pharmacy_name ?? "GL Biochem Peptide";
   const cats = Array.from(new Set(products.map((p) => p.category)));
 
   return (
