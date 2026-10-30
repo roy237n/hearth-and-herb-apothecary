@@ -25,6 +25,8 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const [resetSent, setResetSent] = useState(false);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -32,6 +34,17 @@ function AuthPage() {
     setBusy(false);
     if (error) { toast.error(error.message); return; }
     nav({ to: "/admin" });
+  }
+
+  async function sendReset(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setBusy(false);
+    if (error) { toast.error(error.message); return; }
+    setResetSent(true);
   }
 
   const field = "w-full rounded-xl border bg-card px-4 py-3 text-sm";
