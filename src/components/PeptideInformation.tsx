@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import pipette from '@/assets/enhanced-laboratory-pipette.jpg.asset.json';
-import workbench from '@/assets/enhanced-laboratory-workbench.jpg.asset.json';
-import packaging from '@/assets/enhanced-supplied-peptide-packaging.jpeg.asset.json';
+import pipette from '@/assets/polished-enhanced-laboratory-pipette.jpg.asset.json';
+import workbench from '@/assets/polished-enhanced-laboratory-workbench.jpg.asset.json';
+import packaging from '@/assets/polished-enhanced-supplied-peptide-packaging.jpeg.asset.json';
 
 const topics = [
   { title: 'Identity & composition', text: 'Peptides consist of amino acids linked by peptide bonds. Sequence, chain length and chemical modifications distinguish one compound from another. Specifications may include a molecular formula, molecular weight or CAS identifier; these describe identity rather than proving the quality of a particular batch.' },
