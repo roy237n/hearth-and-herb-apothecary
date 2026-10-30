@@ -71,8 +71,8 @@ function Terms() {
           heading: "Intellectual property",
           body: (
             <p>
-              The content, design and branding of this website belong to {"{name}"} or its licensors and may not be reproduced
-              without permission, except for personal, non-commercial reference.
+              The content, design and branding of this website belong to the operator of this website or its licensors and may
+              not be reproduced without permission, except for personal, non-commercial reference.
             </p>
           ),
         },
