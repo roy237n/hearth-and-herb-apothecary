@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ServicesContactRouteImport } from './routes/services-contact'
 import { Route as ShippingReturnsRouteImport } from './routes/shipping-returns'
 import { Route as ShopRouteImport } from './routes/shop'
@@ -49,6 +50,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesContactRoute = ServicesContactRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services-contact': typeof ServicesContactRoute
   '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services-contact': typeof ServicesContactRoute
   '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services-contact': typeof ServicesContactRoute
   '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/services-contact'
     | '/shipping-returns'
     | '/shop'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/services-contact'
     | '/shipping-returns'
     | '/shop'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/services-contact'
     | '/shipping-returns'
     | '/shop'
@@ -173,6 +185,7 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   DisclaimerRoute: typeof DisclaimerRoute
   PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesContactRoute: typeof ServicesContactRoute
   ShippingReturnsRoute: typeof ShippingReturnsRoute
   ShopRoute: typeof ShopRoute
@@ -222,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services-contact': {
@@ -287,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   DisclaimerRoute: DisclaimerRoute,
   PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ServicesContactRoute: ServicesContactRoute,
   ShippingReturnsRoute: ShippingReturnsRoute,
   ShopRoute: ShopRoute,
