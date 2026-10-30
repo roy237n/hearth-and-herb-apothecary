@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Clock, MapPin, Phone, Search, ShoppingCart, User, ChevronDown, MessageCircle } from "lucide-react";
 import { storefrontQuery, overview } from "@/lib/storefront";
+import { useCart } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { LiveChat } from "@/components/LiveChat";
 
@@ -13,6 +14,7 @@ export function SiteHeader() {
   const nav = useNavigate();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
+  const cart = useCart();
   const name = s?.pharmacy_name ?? "GL Biochem Peptide";
   const cats = Array.from(new Set(products.map((p) => p.category)));
 
@@ -60,7 +62,10 @@ export function SiteHeader() {
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search for products" className="w-full bg-transparent px-3 py-2 text-sm text-foreground outline-none" />
             <Button type="submit" variant="ghost" size="icon" aria-label="Search products" className="text-muted-foreground"><Search className="h-4 w-4" /></Button>
           </form>
-
+          <Link to="/checkout" aria-label="View cart and place an order" className="relative">
+            <ShoppingCart className="h-5 w-5" />
+            {cart.count > 0 && <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">{cart.count}</span>}
+          </Link>
         </div>
       </div>
     </>
