@@ -33,7 +33,7 @@ function Admin() {
   const { user } = Route.useRouteContext();
   const nav = useNavigate();
   const qc = useQueryClient();
-  const [tab, setTab] = useState<"products" | "orders" | "settings" | "inbox">("products");
+  const [tab, setTab] = useState<"products" | "orders" | "certificates" | "settings" | "inbox">("products");
   const { data: isAdmin, isLoading } = useQuery({
     queryKey: ["is-admin", user.id],
     queryFn: async () => {
@@ -69,7 +69,7 @@ function Admin() {
           </div>
         </div>
         <nav className="mx-auto flex max-w-6xl gap-2 px-4 pb-3">
-          {(["products", "orders", "settings", "inbox"] as const).map((t) => (
+          {(["products", "orders", "certificates", "settings", "inbox"] as const).map((t) => (
             <Button key={t} onClick={() => setTab(t)} className={`rounded-full px-4 py-1.5 text-sm capitalize ${tab === t ? "bg-accent text-accent-foreground" : "bg-deep-foreground/10"}`}>
               {t}
             </Button>
@@ -79,6 +79,7 @@ function Admin() {
       <main className="mx-auto max-w-6xl px-4 py-8">
         {tab === "products" && <ProductsTab />}
         {tab === "orders" && <OrdersTab />}
+        {tab === "certificates" && <CertificatesTab />}
         {tab === "settings" && <SettingsTab />}
         {tab === "inbox" && <AdminInbox />}
       </main>
