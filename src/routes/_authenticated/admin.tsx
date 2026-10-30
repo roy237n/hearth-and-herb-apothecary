@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { safeHttps } from "@/lib/messaging-schema";
 import { canonicalOrigin } from "@/lib/storefront";
 import { enhanceProductImage } from "@/lib/images.functions";
+import { certificatesQuery, formatCertDates, type Certificate } from "@/lib/certificates";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
