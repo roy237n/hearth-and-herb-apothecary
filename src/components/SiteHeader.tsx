@@ -29,7 +29,7 @@ export function SiteHeader() {
             <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">Peptide Products</span>
           </Link>
           <div className="hidden items-center justify-end gap-4 text-sm md:flex">
-            {s?.public_contact_verified && s.phone && <a href={`tel:${s.phone}`} className="flex items-center gap-1 font-semibold"><Phone className="h-4 w-4" />{s.phone}</a>}
+            {s?.public_contact_verified && s.phone && <a href={`https://wa.me/${s.phone.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 font-semibold"><Phone className="h-4 w-4" />WhatsApp {s.phone}</a>}
             <Link to="/admin" aria-label="Staff login" className="text-muted-foreground hover:text-foreground"><User className="h-5 w-5" /></Link>
           </div>
         </div>
@@ -89,7 +89,7 @@ export function SiteFooter() {
           </div>
           <div className="text-sm opacity-90">
             <p className="font-display font-semibold">Contact</p>
-            {s?.public_contact_verified && <><p className="mt-2">{s.phone}</p><p>{s.email}</p></>}
+            {s?.public_contact_verified && <><a className="mt-2 block" href={`https://wa.me/${(s.phone ?? "").replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer">WhatsApp: {s.phone}</a><a className="block break-all" href={`mailto:${s.email}`}>{s.email}</a></>}
             <Link to="/services-contact" className="mt-2 block underline">Send an enquiry</Link>
             <Link to="/admin" className="mt-4 inline-block text-xs underline opacity-70">Staff login</Link>
           </div>
