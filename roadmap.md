@@ -1,8 +1,8 @@
 # Premium peptide store update
 
 ## Current hosting requests
-- [ ] Resolve the preview type error from the Netlify storefront fallback.
-- [ ] Investigate and restore missing homepage photos without changing the layout.
+- [x] Resolve the preview type error from the Netlify storefront fallback; latest build reports OK.
+- [x] Verify homepage photos in preview; all displayed photos load after scrolling, with no layout changes needed.
 - [ ] Transfer to the owner's Supabase: blocked until destination project details and the supported Cloud export are supplied; preserve all records and files.
 
 ## Modern Apothecary audit brief (uploaded 2026-10-30)
