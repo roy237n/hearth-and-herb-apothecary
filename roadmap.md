@@ -1,5 +1,10 @@
 # Premium peptide store update
 
+## Current hosting requests
+- [x] Resolve the preview type error from the Netlify storefront fallback; latest build reports OK.
+- [x] Verify homepage photos in preview; all displayed photos load after scrolling, with no layout changes needed.
+- [ ] Transfer to the owner's Supabase: blocked until destination project details and the supported Cloud export are supplied; preserve all records and files.
+
 ## Modern Apothecary audit brief (uploaded 2026-10-30)
 - [x] Certificates: certificates table + private bucket + RLS, admin Certificates tab (upload/edit/delete with confirm/publish toggle/preview), public Certificates & accreditations section on Services & Contact.
 - [x] Legal pages: /terms, /privacy, /shipping-returns, /disclaimer with honest enquiry-only wording, footer links, sitemap entries.
