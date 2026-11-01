@@ -2,10 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
-import laboratoryTeam from "@/assets/hq-enhanced-laboratory-team.jpg.asset.json";
-import laboratorySample from "@/assets/hq-enhanced-laboratory-sample.jpg.asset.json";
-import laboratoryPipette from "@/assets/hq-enhanced-laboratory-pipette.jpg.asset.json";
-import laboratoryWorkbench from "@/assets/hq-enhanced-laboratory-workbench.jpg.asset.json";
+// Photos live in public/images so any static host (Netlify, Lovable) can serve them.
+const laboratoryTeam = "/images/hq-enhanced-laboratory-team.jpg";
+const laboratorySample = "/images/hq-enhanced-laboratory-sample.jpg";
+const laboratoryPipette = "/images/hq-enhanced-laboratory-pipette.jpg";
+const laboratoryWorkbench = "/images/hq-enhanced-laboratory-workbench.jpg";
 import { PeptideInformation } from "@/components/PeptideInformation";
 import { storefrontQuery, pageHead, overview, documentationOverview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
