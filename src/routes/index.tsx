@@ -2,10 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
-import laboratoryTeam from "@/assets/hq-enhanced-laboratory-team.jpg.asset.json";
-import laboratorySample from "@/assets/hq-enhanced-laboratory-sample.jpg.asset.json";
-import laboratoryPipette from "@/assets/hq-enhanced-laboratory-pipette.jpg.asset.json";
-import laboratoryWorkbench from "@/assets/hq-enhanced-laboratory-workbench.jpg.asset.json";
+// Photos live in public/images so any static host (Netlify, Lovable) can serve them.
+const laboratoryTeam = "/images/hq-enhanced-laboratory-team.jpg";
+const laboratorySample = "/images/hq-enhanced-laboratory-sample.jpg";
+const laboratoryPipette = "/images/hq-enhanced-laboratory-pipette.jpg";
+const laboratoryWorkbench = "/images/hq-enhanced-laboratory-workbench.jpg";
 import { PeptideInformation } from "@/components/PeptideInformation";
 import { storefrontQuery, pageHead, overview, documentationOverview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
@@ -20,10 +21,10 @@ export const Route = createFileRoute("/")({
 });
 
 const slides = [
-  { img: laboratoryTeam.url, alt: "Scientists preparing samples in an illustrative laboratory photograph", kicker: "Peptide products & information" },
-  { img: laboratorySample.url, alt: "Scientist transferring a sample with a pipette in an illustrative laboratory photograph", kicker: "Product enquiries & documentation" },
-  { img: laboratoryPipette.url, alt: "Scientist using a pipette beside laboratory sample tubes in an illustrative photograph", kicker: "Peptide products & information" },
-  { img: laboratoryWorkbench.url, alt: "Scientists working with samples at a laboratory workbench in an illustrative photograph", kicker: "Product enquiries & documentation" },
+  { img: laboratoryTeam, alt: "Scientists preparing samples in an illustrative laboratory photograph", kicker: "Peptide products & information" },
+  { img: laboratorySample, alt: "Scientist transferring a sample with a pipette in an illustrative laboratory photograph", kicker: "Product enquiries & documentation" },
+  { img: laboratoryPipette, alt: "Scientist using a pipette beside laboratory sample tubes in an illustrative photograph", kicker: "Peptide products & information" },
+  { img: laboratoryWorkbench, alt: "Scientists working with samples at a laboratory workbench in an illustrative photograph", kicker: "Product enquiries & documentation" },
 ];
 
 function Index() {
@@ -70,7 +71,7 @@ function Index() {
               <Benzene className="absolute -bottom-10 -right-4 w-36 text-foreground/70" />
             </div>
             <div className="relative min-h-[200px] overflow-hidden">
-              <img src={laboratorySample.url} alt="Scientist preparing a laboratory sample" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={laboratorySample} alt="Scientist preparing a laboratory sample" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/60 to-transparent" />
               <div className="relative p-7 text-primary-foreground">
                 <p className="font-display text-lg font-semibold">Customer support</p>
