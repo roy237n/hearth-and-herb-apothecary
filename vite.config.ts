@@ -12,4 +12,8 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Compile the browser code for older phones (iOS 14+, Android Chrome 87+), not only recent ones.
+    build: { target: ["es2020", "safari14", "chrome87", "firefox78", "edge88"] },
+  },
 });
