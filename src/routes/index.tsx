@@ -2,11 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, FlaskConical, Stethoscope } from "lucide-react";
-// Photos live in public/images so any static host (Netlify, Lovable) can serve them.
-const laboratoryTeam = "/images/hq-enhanced-laboratory-team.jpg";
-const laboratorySample = "/images/hq-enhanced-laboratory-sample.jpg";
-const laboratoryPipette = "/images/hq-enhanced-laboratory-pipette.jpg";
-const laboratoryWorkbench = "/images/hq-enhanced-laboratory-workbench.jpg";
+import { homepageImages } from '@/lib/homepage-images';
+const laboratoryTeam = homepageImages.team;
+const laboratorySample = homepageImages.sample;
+const laboratoryPipette = homepageImages.pipette;
+const laboratoryWorkbench = homepageImages.workbench;
 import { PeptideInformation } from "@/components/PeptideInformation";
 import { storefrontQuery, pageHead, overview, documentationOverview } from "@/lib/storefront";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,8 @@ const slides = [
   { img: laboratorySample, alt: "Scientist transferring a sample with a pipette in an illustrative laboratory photograph", kicker: "Product enquiries & documentation" },
   { img: laboratoryPipette, alt: "Scientist using a pipette beside laboratory sample tubes in an illustrative photograph", kicker: "Peptide products & information" },
   { img: laboratoryWorkbench, alt: "Scientists working with samples at a laboratory workbench in an illustrative photograph", kicker: "Product enquiries & documentation" },
+  { img: homepageImages.analysis, alt: "Gloved laboratory worker holding a sample beside analytical equipment", kicker: "Product enquiries & documentation" },
+  { img: homepageImages.vial, alt: "Gloved laboratory worker preparing a vial beside analytical equipment", kicker: "Peptide products & information" },
 ];
 
 function Index() {
