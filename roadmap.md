@@ -1,5 +1,10 @@
 # Premium peptide store update
 
+## Current screen-fit update
+- [ ] Make dashboard navigation, item actions, forms and inbox fit narrow screens.
+- [ ] Make storefront navigation, catalogue, ordering and chat fit narrow screens.
+- [ ] Verify phone and desktop page widths and signed-in dashboard layouts.
+
 ## Current photo and location update
 - [x] Add both supplied laboratory photos and replace black packaging with the supplied white packaging photograph.
 - [x] Enhance the four existing slideshow photographs without changing the layout.
