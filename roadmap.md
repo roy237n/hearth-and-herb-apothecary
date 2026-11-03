@@ -1,9 +1,9 @@
 # Premium peptide store update
 
 ## Current photo and location update
-- [ ] Add both supplied laboratory photos and replace black packaging with the supplied white packaging photograph.
-- [ ] Enhance the four existing slideshow photographs without changing the layout.
-- [ ] Replace US & UK location with China & UK and verify photo loading and slideshow navigation.
+- [x] Add both supplied laboratory photos and replace black packaging with the supplied white packaging photograph.
+- [x] Enhance the four existing slideshow photographs without changing the layout.
+- [x] Replace US & UK location with China & UK and verify photo loading and slideshow navigation.
 
 ## Current hosting requests
 - [x] Resolve the preview type error from the Netlify storefront fallback; latest build reports OK.
