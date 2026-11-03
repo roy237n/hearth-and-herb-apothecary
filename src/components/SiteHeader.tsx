@@ -33,7 +33,7 @@ export function SiteHeader() {
       <div className="border-b bg-background">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-3 px-4 py-3 md:grid-cols-3">
           <div className="hidden items-center gap-5 text-sm text-muted-foreground md:flex">
-            <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />US & UK</span>
+            <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />China & UK</span>
             <span className="flex items-center gap-1"><Clock className="h-4 w-4" />{s?.public_contact_verified ? s.hours : "Worldwide enquiries"}</span>
           </div>
           <Link to="/" className="flex flex-col items-center leading-none">
@@ -101,7 +101,7 @@ export function SiteFooter() {
           </div>
           <div className="text-sm opacity-90">
             <p className="font-display font-semibold">Our business</p>
-            <p className="mt-2">US & UK · Worldwide enquiries</p>
+            <p className="mt-2">China & UK · Worldwide enquiries</p>
             {s?.public_contact_verified && s.address && <p>{s.address}</p>}
             {s?.public_contact_verified && s.hours && <p>{s.hours}</p>}
           </div>
