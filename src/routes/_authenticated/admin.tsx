@@ -202,7 +202,7 @@ function ProductForm({ product, onClose }: { product: Product | null; onClose: (
       <label className="text-sm">Photo<input type="file" accept="image/*" className={field} onChange={(e) => setFile(e.target.files?.[0] ?? null)} /></label>
       <label className="text-sm md:col-span-2">Description<textarea className={field} value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} /></label>
       <label className="text-sm md:col-span-2">Verified specifications<textarea className={field} value={f.specifications} onChange={e=>setF({...f,specifications:e.target.value})} /></label>
-      <label className="text-sm">Documentation URL<input type="url" className={field} value={f.documentation_url} onChange={e=>setF({...f,documentation_url:e.target.value})} /></label>
+      <label className="text-sm">Documentation URL <span className="text-muted-foreground">(optional)</span><input type="url" placeholder="https://… (leave blank if none)" className={field} value={f.documentation_url} onChange={e=>setF({...f,documentation_url:e.target.value})} /></label>
       <label className="text-sm">Intended use<input className={field} value={f.intended_use} onChange={e=>setF({...f,intended_use:e.target.value})} /></label>
       <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={f.catalogue_visible} onChange={e=>setF({...f,catalogue_visible:e.target.checked})} />Approved for peptide catalogue</label>
       <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={f.featured} onChange={e=>setF({...f,featured:e.target.checked})} />Featured on home page</label>
