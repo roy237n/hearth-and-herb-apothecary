@@ -191,7 +191,7 @@ function ProductForm({ product, onClose }: { product: Product | null; onClose: (
   }
 
   return (
-    <form onSubmit={save} className="mt-6 grid gap-3 rounded-2xl border bg-muted p-5 md:grid-cols-2">
+    <form onSubmit={save} className="mt-6 grid min-w-0 gap-3 rounded-2xl border bg-muted p-3 sm:p-5 md:grid-cols-2">
       <h3 className="font-display text-lg font-bold md:col-span-2">{product ? "Edit product" : "New product"}</h3>
       <label className="text-sm">Name<input required className={field} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></label>
       <label className="text-sm">Category (pick one or type a new one)<input required list="cat-list" className={field} value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })} />
@@ -211,7 +211,7 @@ function ProductForm({ product, onClose }: { product: Product | null; onClose: (
         <label className="flex items-center gap-2"><input type="checkbox" checked={f.requires_prescription} onChange={(e) => setF({ ...f, requires_prescription: e.target.checked })} /> Prescription required</label>
         <label className="flex items-center gap-2"><input type="checkbox" checked={f.active} onChange={(e) => setF({ ...f, active: e.target.checked })} /> Visible on site</label>
       </div>
-      <div className="flex items-center gap-3 md:col-span-2">
+      <div className="flex flex-wrap items-center gap-3 md:col-span-2">
         <Button disabled={!!busy} className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Save</Button>
         <Button type="button" onClick={onClose} className="text-sm underline">Cancel</Button>
         {busy && <span className="text-sm text-muted-foreground">{busy}</span>}
@@ -405,7 +405,7 @@ function CertificateForm({ cert, onClose }: { cert: Certificate | null; onClose:
   }
 
   return (
-    <form onSubmit={save} className="mt-6 grid gap-3 rounded-2xl border bg-muted p-5 md:grid-cols-2">
+    <form onSubmit={save} className="mt-6 grid min-w-0 gap-3 rounded-2xl border bg-muted p-3 sm:p-5 md:grid-cols-2">
       <h3 className="font-display text-lg font-bold md:col-span-2">{cert ? "Edit certificate" : "New certificate"}</h3>
       <label className="text-sm">Name<input required className={field} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></label>
       <label className="text-sm">Issuing organisation<input className={field} value={f.issuing_organisation} onChange={(e) => setF({ ...f, issuing_organisation: e.target.value })} /></label>
@@ -414,7 +414,7 @@ function CertificateForm({ cert, onClose }: { cert: Certificate | null; onClose:
       <label className="text-sm md:col-span-2">Description<textarea className={field} value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} /></label>
       <label className="text-sm">Document (image or PDF){cert && " — leave empty to keep current"}<input type="file" accept="image/*,application/pdf" className={field} onChange={(e) => setFile(e.target.files?.[0] ?? null)} /></label>
       <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={f.publicly_visible} onChange={(e) => setF({ ...f, publicly_visible: e.target.checked })} /> Show on website</label>
-      <div className="flex items-center gap-3 md:col-span-2">
+      <div className="flex flex-wrap items-center gap-3 md:col-span-2">
         <Button disabled={!!busy} className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Save</Button>
         <Button type="button" onClick={onClose} className="text-sm underline">Cancel</Button>
         {busy && <span className="text-sm text-muted-foreground">{busy}</span>}
