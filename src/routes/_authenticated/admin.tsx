@@ -34,6 +34,14 @@ function Admin() {
   const nav = useNavigate();
   const qc = useQueryClient();
   const [tab, setTab] = useState<"products" | "orders" | "certificates" | "settings" | "inbox">("products");
+  // Presence heartbeat: visitors see "online" while the dashboard is open.
+  useEffect(() => {
+    const beat = () => { if (document.visibilityState === "visible") void supabase.from("site_settings").update({ admin_last_seen: new Date().toISOString() }).eq("id", 1); };
+    beat();
+    const t = setInterval(beat, 30000);
+    document.addEventListener("visibilitychange", beat);
+    return () => { clearInterval(t); document.removeEventListener("visibilitychange", beat); };
+  }, []);
   const { data: isAdmin, isLoading } = useQuery({
     queryKey: ["is-admin", user.id],
     queryFn: async () => {

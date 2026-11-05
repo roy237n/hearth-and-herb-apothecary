@@ -268,6 +268,7 @@ export type Database = {
       site_settings: {
         Row: {
           address: string
+          admin_last_seen: string | null
           announcement: string
           business_description: string
           canonical_origin: string
@@ -292,6 +293,7 @@ export type Database = {
         }
         Insert: {
           address?: string
+          admin_last_seen?: string | null
           announcement?: string
           business_description?: string
           canonical_origin?: string
@@ -316,6 +318,7 @@ export type Database = {
         }
         Update: {
           address?: string
+          admin_last_seen?: string | null
           announcement?: string
           business_description?: string
           canonical_origin?: string
