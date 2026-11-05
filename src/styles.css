@@ -148,6 +148,18 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+  html {
+    overflow-x: clip;
+  }
+  img, video {
+    max-width: 100%;
+  }
+  input, select, textarea {
+    max-width: 100%;
+    min-width: 0;
   }
 }
 
