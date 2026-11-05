@@ -22,6 +22,13 @@
       "when": 1793379250319,
       "tag": "0002_create_certificates",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793857982573,
+      "tag": "0003_admin_presence",
+      "breakpoints": true
     }
   ]
 }
