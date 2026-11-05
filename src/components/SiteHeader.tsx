@@ -67,12 +67,12 @@ export function SiteHeader() {
           </nav>
           <form
             onSubmit={(e) => { e.preventDefault(); nav({ to: "/shop", search: { q } }); }}
-            className="ml-auto flex min-w-40 flex-1 items-center rounded-sm bg-background md:max-w-xs"
+            className="order-last flex w-full min-w-0 items-center sm:order-none sm:ml-auto sm:w-auto sm:flex-1 rounded-sm bg-background md:max-w-xs"
           >
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search for products" className="w-full bg-transparent px-3 py-2 text-sm text-foreground outline-none" />
             <Button type="submit" variant="ghost" size="icon" aria-label="Search products" className="text-muted-foreground"><Search className="h-4 w-4" /></Button>
           </form>
-          <Link to="/checkout" aria-label="View cart and place an order" className="relative">
+          <Link to="/checkout" aria-label="View cart and place an order" className="relative ml-auto p-2 sm:ml-0">
             <ShoppingCart className="h-5 w-5" />
             {cart.count > 0 && <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">{cart.count}</span>}
           </Link>
