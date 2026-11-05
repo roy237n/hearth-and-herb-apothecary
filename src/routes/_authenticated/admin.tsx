@@ -59,7 +59,7 @@ function Admin() {
     );
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
+    <div className="min-h-screen w-full overflow-x-clip bg-background font-sans text-foreground">
       <header className="bg-deep text-deep-foreground">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
           <p className="font-display text-xl font-bold">Admin dashboard</p>
@@ -68,9 +68,9 @@ function Admin() {
             <Button onClick={signOut} className="rounded-full bg-deep-foreground/15 px-3 py-1">Sign out</Button>
           </div>
         </div>
-        <nav className="mx-auto flex max-w-6xl gap-2 px-4 pb-3">
+        <nav aria-label="Admin sections" className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 pb-3">
           {(["products", "orders", "certificates", "settings", "inbox"] as const).map((t) => (
-            <Button key={t} onClick={() => setTab(t)} className={`rounded-full px-4 py-1.5 text-sm capitalize ${tab === t ? "bg-accent text-accent-foreground" : "bg-deep-foreground/10"}`}>
+            <Button key={t} onClick={() => setTab(t)} className={`shrink-0 rounded-full px-3 py-1.5 text-sm capitalize sm:px-4 ${tab === t ? "bg-accent text-accent-foreground" : "bg-deep-foreground/10"}`}>
               {t}
             </Button>
           ))}
@@ -104,14 +104,14 @@ function ProductsTab() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-display text-2xl font-bold">Products ({products.length})</h2>
         <Button onClick={() => setEditing("new")} className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">+ Add product</Button>
       </div>
       {editing && <ProductForm product={editing === "new" ? null : editing} onClose={() => setEditing(null)} />}
       <div className="mt-6 space-y-3">
         {products.map((p) => (
-          <div key={p.id} className="flex items-center gap-4 rounded-xl border bg-card p-3">
+          <div key={p.id} className="flex flex-wrap items-center gap-3 rounded-xl border bg-card p-3 sm:flex-nowrap sm:gap-4">
             <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-lg bg-secondary">
               {p.image_url ? <img src={p.image_url} alt="" className="h-full w-full object-cover" /> : <span className="font-display text-xl text-primary">{p.name[0]}</span>}
             </div>
@@ -289,7 +289,7 @@ function SettingsTab() {
     qc.invalidateQueries({ queryKey: ["storefront"] });
   }
   return (
-    <form onSubmit={save} className="grid max-w-2xl gap-3">
+    <form onSubmit={save} className="grid w-full min-w-0 max-w-2xl gap-3">
       <h2 className="font-display text-2xl font-bold">Business details</h2>
       <label className="flex gap-2 text-sm"><input type="checkbox" checked={s.public_contact_verified} onChange={e=>setS({...s,public_contact_verified:e.target.checked})} />Publish verified contact details</label>
       {keys.map(([k, label]) => (
