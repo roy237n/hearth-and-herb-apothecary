@@ -1,5 +1,10 @@
 # Premium peptide store update
 
+## Current homepage credibility update
+- [ ] Shorten educational copy by at least half and bring factual trust information into the first screen.
+- [ ] Add the four requested researcher benefit cards using existing sections; preserve design, photos and China–UK location.
+- [ ] Verify homepage enquiry links, images and phone/desktop layout.
+
 ## Current screen-fit update
 - [ ] Make dashboard navigation, item actions, forms and inbox fit narrow screens.
 - [ ] Make storefront navigation, catalogue, ordering and chat fit narrow screens.
