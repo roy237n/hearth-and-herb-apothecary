@@ -15,3 +15,4 @@
 - Public page data is loaded through server publishable-client reads and route query loaders; SEO derives from editable settings and a validated production origin.
 - Keep homepage supplier benefits and concise supporting content in a dedicated browser-safe component; centralize homepage photo references in a browser-safe module, using absolute hosted CDN pointer URLs for uploads and bundled imports for generated enhancements so external hosts can display them; homepage photos do not create catalogue records.
 - Keep the searchable documentation library on Shop; derive entries only from approved products with safe linked documents, and match batch searches against administrator-supplied specifications to avoid fabricated certificate data.
+- Mount the official-site notice once in the shared root and open it after hydration on each page load, so all entry pages show the warning without repeating it during internal navigation.
