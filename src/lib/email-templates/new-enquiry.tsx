@@ -27,7 +27,7 @@ const NewEnquiry = ({ name, email, subject, message }: Props) => (
 
 export const template = {
   component: NewEnquiry,
-  subject: (d: Record<string, any>) => `New enquiry: ${d.subject || 'Website contact form'}`,
+  subject: (d: Record<string, any>) => `New enquiry: ${d['subject'] || 'Website contact form'}`,
   displayName: 'New enquiry (to admin)',
   to: 'jingyanglbiochempeptides@gmail.com',
   previewData: { name: 'Jane Doe', email: 'jane@example.com', subject: 'Product enquiry: Retatrutide 10 mg', message: 'Hello, is this available for shipping to the UK?' },
